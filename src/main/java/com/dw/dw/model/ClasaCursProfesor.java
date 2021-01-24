@@ -19,10 +19,10 @@ public class ClasaCursProfesor {
     private Clasa clasa;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "clasa_id", nullable=false)
+    @JoinColumn(name = "curs_id", nullable=false)
     private Curs curs;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "clasa_id", nullable=false)
+    @JoinColumn(name = "profesor_id", nullable=false)
     private Profesor profesor;
 }
