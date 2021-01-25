@@ -59,7 +59,7 @@
                             <div class="col-sm-12">
 
                                 <form th:object="${clasa}"
-                                     th:action="@{'/clasa/new?inst=' + ${clasa.institutie.id}}" method="post"
+                                      th:action="@{/clasa/update/{id}(id=${clasa.id})}" method="post"
                                       class="form-horizontal">
                                     <input type="hidden" th:field="*{id}"/>
 
@@ -127,6 +127,7 @@
 
                                             <select id="dropDownProfil" class="form-control"
                                                     name="dropDownProfil"
+
                                                     required>
 
                                                 <option th:each="elem : ${profilList}"
@@ -146,9 +147,9 @@
                                                     th:field="*{specializare}"
                                                     required>
 
-<!--                                                <option th:each="elem : ${profilList}"-->
-<!--                                                        th:value="${elem.id}"-->
-<!--                                                        th:text="${elem.denumire}"></option>-->
+                                                <!--                                                <option th:each="elem : ${profilList}"-->
+                                                <!--                                                        th:value="${elem.id}"-->
+                                                <!--                                                        th:text="${elem.denumire}"></option>-->
                                             </select>
 
                                         </div>
@@ -188,7 +189,33 @@
 ================================================== -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-<script type="text/javascript">
+<script th:inline="javascript" type="text/javascript">
+    //incarcarea initiala a celor 2 dropdown-uri
+    $(document).ready(function () {
+        $(document).ready(function () {
+            var categoryId = [[${clasa.specializare.profil.id}]];
+            $.ajax({
+                type: 'GET',
+                url: "/clasa/new/loadSpecializari/" + categoryId,
+                success: function(data){
+                    var slctSubcat=$('#subcatList'), option="";
+                    slctSubcat.empty();
+
+                    for(var i=0; i<data.length; i++){
+                        option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";
+                    }
+                    slctSubcat.append(option);
+                },
+                error:function(){
+                    alert("error");
+                }
+            });
+        });
+        $("#dropDownProfil").val([[${clasa.specializare.profil.id}]]);
+        $("#subcatList").val([[${clasa.specializare.id}]]);
+    });
+
+    //evenimentul change
     $(document).ready(function () {
         $(document).on("change", "#dropDownProfil", function () {
             var categoryId = $(this).val();

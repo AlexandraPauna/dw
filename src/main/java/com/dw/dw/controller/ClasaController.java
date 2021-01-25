@@ -118,4 +118,61 @@ public class ClasaController {
 
         return "clasa/show";
     }
+
+    @RequestMapping(value = "/clasa/update/{id}", method = RequestMethod.GET)
+    public String updateClasa(Model model,@PathVariable int id) {
+        List<InstitutieInvatamant> institutii = institutieInvatamantService.getAllInstitutieInvatamant();
+        Collections.sort(institutii, new Comparator<InstitutieInvatamant>() {
+            @Override
+            public int compare(InstitutieInvatamant c1, InstitutieInvatamant c2) {
+                return c1.getNume().compareTo(c2.getNume());
+            }
+        });
+        model.addAttribute("institutieList", institutii);
+
+        List<Profil> profilList = profilService.getAllProfil();
+        Collections.sort(profilList, new Comparator<Profil>() {
+            @Override
+            public int compare(Profil c1, Profil c2) {
+                return c1.getDenumire().compareTo(c2.getDenumire());
+            }
+        });
+        model.addAttribute("profilList", profilList);
+
+        Clasa clasa = clasaService.findClasaById(id);
+        model.addAttribute("clasa", clasa);
+
+        return "/clasa/update";
+    }
+
+    @PostMapping(value = "/clasa/update/{id}")
+    public String updateClasa(@PathVariable("id") int id,@Valid Clasa clasa,
+                                   BindingResult result, Model model) {
+        if (result.hasErrors()) {
+
+            return "/clasa/update";
+        }
+        Clasa currentElem = clasaService.findClasaById(id);
+        currentElem.setNume(clasa.getNume());
+        currentElem.setNivel(clasa.getNivel());
+        currentElem.setAn(clasa.getAn());
+        currentElem.setInstitutie(clasa.getInstitutie());
+        currentElem.setSpecializare(clasa.getSpecializare());
+
+        clasaService.updateClasa(currentElem);
+        if (result.hasErrors()){
+            return "/clasa/update";
+        }
+
+        return "redirect:/clasa/show/" + clasa.getId();
+
+    }
+
+    @RequestMapping("clasa/{id}/delete")
+    public String deleteById(@PathVariable String id){
+        Clasa currentElem = clasaService.findClasaById(Integer.valueOf(id));
+        int idInst = currentElem.getId();
+        clasaService.deleteById(Integer.valueOf(id));
+        return "redirect:/institutie/show/" + idInst;
+    }
 }
