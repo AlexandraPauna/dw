@@ -1,26 +1,29 @@
 package com.dw.dw.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity(name = "Nota")
 public class Nota {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "nota_id")
     private int id;
 
     @Column(name = "valoare")
-    @NotEmpty(message = "*Introduceti valoarea notei!")
+    @NotNull(message = "*Introduceti valoarea notei!")
     @Min(value = 1, message = "Trebuie sa fie mai mare de 0!")
     @Max(value = 10, message = "Trebuie sa fie maxim 10!")
     private Integer valoare;

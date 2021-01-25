@@ -1,7 +1,6 @@
 package com.dw.dw.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -9,12 +8,15 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity(name = "Istoric")
 public class Istoric {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "istoric_id")
     private int id;
 
@@ -23,7 +25,7 @@ public class Istoric {
     private Elev elev;
 
     @Column(name = "nivel")
-    @NotEmpty(message = "*Introduceti nivelul!")
+    @NotNull(message = "*Introduceti nivelul!")
     private Integer nivel;
 
     @Column(name = "medie")

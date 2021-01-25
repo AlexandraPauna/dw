@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +17,7 @@ import java.util.Set;
 @Table(name = "Clasa")
 public class Clasa {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "clasa_id")
     private int id;
 
@@ -25,7 +26,7 @@ public class Clasa {
     private String nume;
 
     @Column(name = "nivel")
-    @NotEmpty(message = "*Introduceti nivelul clasei!")
+    @NotNull(message = "*Introduceti nivelul clasei!")
     private Integer nivel;
 
     @Column(name = "an")
