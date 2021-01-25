@@ -74,7 +74,7 @@
                                         <div class="col-sm-8">
                                             <label th:if="${#fields.hasErrors('nume')}" th:errors="*{nume}"
                                                    class="validation-message"></label>
-                                            <input type="text" class="form-control" th:field="*{nume}" />
+                                            <input type="text" class="form-control" th:field="*{nume}" required/>
                                         </div>
                                     </div>
 
@@ -96,7 +96,7 @@
                                     </div>
 
                                     <div class="content-subheading">
-                                        <i class="icon-restaurant"></i>
+                                        <i class="icon-building-filled"></i>
                                         <strong>
                                             Adresa
                                         </strong>
@@ -107,7 +107,7 @@
                                         <div class="col-sm-8">
                                             <label th:if="${#fields.hasErrors('adresa.strada')}" th:errors="*{adresa.strada}"
                                                class="validation-message"></label>
-                                            <input type="text" class="form-control" th:field="*{adresa.strada}" />
+                                            <input type="text" class="form-control" th:field="*{adresa.strada}" required/>
                                         </div>
                                     </div>
 
@@ -116,7 +116,33 @@
                                         <div class="col-sm-8">
                                             <label th:if="${#fields.hasErrors('adresa.numar')}" th:errors="*{adresa.numar}"
                                                    class="validation-message"></label>
-                                            <input type="number" class="form-control" th:field="*{adresa.numar}" />
+                                            <input type="number" class="form-control" th:field="*{adresa.numar}" required/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 col-form-label">Cod Postal</label>
+                                        <div class="col-sm-8">
+                                            <label th:if="${#fields.hasErrors('adresa.codPostal')}" th:errors="*{adresa.codPostal}"
+                                                   class="validation-message"></label>
+                                            <input type="text" class="form-control" th:field="*{adresa.codPostal}" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 col-form-label">Localitate</label>
+                                        <div class="col-sm-8">
+                                            <label th:if="${#fields.hasErrors('adresa.localitate')}" th:errors="*{adresa.localitate}"
+                                                   class="validation-message"></label>
+                                            <select id="dropDownLocalitate" class="form-control"
+                                                    name="dropDownLocalitate"
+                                                    th:field="*{adresa.localitate}" required>
+
+                                                <option th:each="local : ${localitateList}"
+                                                        th:value="${local.id}"
+                                                        th:text="${local.nume} - ${local.judet.nume}"></option>
+                                            </select>
+
                                         </div>
                                     </div>
 
