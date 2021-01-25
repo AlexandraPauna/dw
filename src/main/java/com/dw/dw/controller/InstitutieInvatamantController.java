@@ -1,6 +1,7 @@
 package com.dw.dw.controller;
 
 import com.dw.dw.model.InstitutieInvatamant;
+import com.dw.dw.model.Localitate;
 import com.dw.dw.model.TipInstitutie;
 import com.dw.dw.service.InstitutieInvatamantService;
 import com.dw.dw.service.LocalitateService;
@@ -9,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
@@ -57,7 +55,7 @@ public class InstitutieInvatamantController {
     }
 
     @RequestMapping(value = "/institutie/new", method = RequestMethod.POST)
-    public String savedRecipe(@Valid InstitutieInvatamant institutie, BindingResult bindingResult, Model model) {
+    public String savedInstitutie(@Valid InstitutieInvatamant institutie, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "/institutie/new";
         }
@@ -68,9 +66,65 @@ public class InstitutieInvatamantController {
     }
 
     @GetMapping("/institutie/show/{id}")
-    public String showRecipe(@PathVariable String id, Model model){
+    public String showInstitutie(@PathVariable String id, Model model){
         model.addAttribute("institutie", institutieInvatamantService.findInstitutieInvatamantById(Integer.valueOf(id)));
 
         return "institutie/show";
+    }
+
+    @RequestMapping(value = "/institutie/update/{id}", method = RequestMethod.GET)
+    public String updateInstitutie(Model model,@PathVariable int id) {
+        List<TipInstitutie> tipInstitutieList = tipInstitutieService.getAllTipInstitutie();
+        Collections.sort(tipInstitutieList, new Comparator<TipInstitutie>() {
+            @Override
+            public int compare(TipInstitutie c1, TipInstitutie c2) {
+                return c1.getDenumire().compareTo(c2.getDenumire());
+            }
+        });
+
+        List<Localitate> localitateList = localitateService.getAllLocalitate();
+        Collections.sort(localitateList, new Comparator<Localitate>() {
+            @Override
+            public int compare(Localitate c1, Localitate c2) {
+                return c1.getNume().compareTo(c2.getNume());
+            }
+        });
+
+        model.addAttribute("tipInstitutieList", tipInstitutieList);
+        model.addAttribute("localitateList", localitateList);
+
+        InstitutieInvatamant institutie = institutieInvatamantService.findInstitutieInvatamantById(id);
+        model.addAttribute("institutie", institutie);
+
+        return "/institutie/update";
+    }
+
+    @PostMapping(value = "/institutie/update/{id}")
+    public String updateInstitutie(@PathVariable("id") int id,@Valid InstitutieInvatamant institutie,
+                               BindingResult result, Model model) {
+        if (result.hasErrors()) {
+
+            return "/institutie/update";
+        }
+        InstitutieInvatamant currentElem = institutieInvatamantService.findInstitutieInvatamantById(id);
+        currentElem.setNume(institutie.getNume());
+        currentElem.setTipInstitutie(institutie.getTipInstitutie());
+        currentElem.setAdresa(institutie.getAdresa());
+        currentElem.setClase(institutie.getClase());
+
+        institutieInvatamantService.updateInstitutieInvatamant(currentElem);
+        if (result.hasErrors()){
+            return "/institutie/update";
+        }
+
+        allInstitutii(model);
+        return "redirect:/institutie/index";
+
+    }
+
+    @RequestMapping("institutie/{id}/delete")
+    public String deleteById(@PathVariable String id){
+        institutieInvatamantService.deleteById(Integer.valueOf(id));
+        return "redirect:/institutie/index";
     }
 }
