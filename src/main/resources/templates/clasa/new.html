@@ -58,7 +58,8 @@
                         <div class="row">
                             <div class="col-sm-12">
 
-                                <form th:object="${clasa}" th:action="@{/clasa/new?inst=clasa.institutie.id}" method="post"
+                                <form th:object="${clasa}"
+                                     th:action="@{'/clasa/new?inst=' + ${clasa.institutie.id}}" method="post"
                                       class="form-horizontal">
                                     <input type="hidden" th:field="*{id}"/>
 
@@ -153,22 +154,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Localitate</label>
-                                        <div class="col-sm-8">
-                                            <label th:if="${#fields.hasErrors('specializare')}" th:errors="*{specializare}"
-                                                   class="validation-message"></label>
-                                            <select id="dropDownLocalitate" class="form-control"
-                                                    name="dropDownLocalitate"
-                                                    th:field="*{specializare}" required>
-
-<!--                                                <option th:each="local : ${localitateList}"-->
-<!--                                                        th:value="${local.id}"-->
-<!--                                                        th:text="${local.nume} + '-' + ${local.judet.nume}"></option>-->
-                                            </select>
-
-                                        </div>
-                                    </div>
 
                                     <!-- Button  -->
                                     <div class="form-group row">
@@ -206,25 +191,27 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(document).on("change", "#dropDownProfil", function () {
-            var cID = $(this).val();
-            $.getJSON("/clasa/new/loadSpecializari/" + cID, {},
-                function (data) {
-                    var select = $("#subcatList");
-                    select.empty();
-                    select.append($('<option/>', {
-                        value: 0,
-                        text: "Selecteaza o specializare"
-                    }));
-                    $.each(data, function (index, itemData) {
-                        select.append($('<option/>', {
-                            value: itemData.value,
-                            text: itemData.text
-                        }));
-                    });
-                });
+            var categoryId = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: "/clasa/new/loadSpecializari/" + categoryId,
+                success: function(data){
+                    var slctSubcat=$('#subcatList'), option="";
+                    slctSubcat.empty();
+
+                    for(var i=0; i<data.length; i++){
+                        option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";
+                    }
+                    slctSubcat.append(option);
+                },
+                error:function(){
+                    alert("error");
+                }
+            });
         });
     });
 </script>
+
 
 <!-- Placed at the end of the document so the pages load faster -->
 

@@ -16,10 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Convert;
 import javax.validation.Valid;
@@ -85,12 +82,13 @@ public class ClasaController {
         return "redirect:/institutie/index";
     }
 
-    @RequestMapping(value = "/clasa/new/loadSpecializari/{id}", method = RequestMethod.GET)
-    public JSONArray loadSpecializari(@PathVariable Integer id, Model model) {
-        List<SelectListItem> specializareList = getAllSpecializari(id);
-        System.out.println(specializareList);
-        JSONArray jsonArray = new JSONArray(specializareList);
-        return jsonArray;
+
+    @RequestMapping(value = "/clasa/new/loadSpecializari/{profilId}", method = RequestMethod.GET)
+    public @ResponseBody  List<SelectListItem> getAllSubcategories(@PathVariable("profilId") int profilId) {
+        Profil profil = profilService.findProfilById(profilId);
+        System.out.println(profil);
+        List<SelectListItem> specializareList = getAllSpecializari(profilId);
+        return specializareList;
     }
 
     public List<SelectListItem> getAllSpecializari(Integer profilId)

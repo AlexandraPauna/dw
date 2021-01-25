@@ -155,7 +155,7 @@
                                 <div class="ads-details-info col-md-8">
                                     <ul class="cat-list col-md-12  col-6 col-xxs-12">
                                         <li th:each="clasa : ${institutie.clase}" class="breadcrumb-item" aria-current="page">
-                                            <a th:href="@{'/clasa/show/' + ${clasa.id}}" th:text="${clasa.nume}"></a>-->
+                                            <a th:href="@{'/clasa/show/' + ${clasa.id}}" th:text="${clasa.nume}"></a>
                                         </li>
                                         <li>
                                             <a th:href="@{'/clasa/new?inst=' + ${institutie.id}}">
