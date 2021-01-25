@@ -17,7 +17,7 @@ import java.util.Set;
 @Table(name = "INSTITUTIE_INVATAMANT")
 public class InstitutieInvatamant {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "institutie_id")
     private int id;
 
@@ -29,7 +29,7 @@ public class InstitutieInvatamant {
     @JoinColumn(name = "tipinstitutie_id")
     private TipInstitutie tipInstitutie;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "adresa_id")
     private Adresa adresa;
 

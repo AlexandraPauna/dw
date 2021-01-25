@@ -1,16 +1,19 @@
 package com.dw.dw.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.Set;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "Clasa")
+@Entity
+@Table(name = "Clasa")
 public class Clasa {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

@@ -1,17 +1,21 @@
 package com.dw.dw.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "ADRESA")
+@Entity
+@Table(name = "ADRESA")
 public class Adresa {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "adresa_id")
     private int id;
 
@@ -20,7 +24,7 @@ public class Adresa {
     private String strada;
 
     @Column(name = "numar")
-    @NotEmpty(message = "*Introduceti strada!")
+    @NotNull(message = "*Introduceti numarul!")
     private int numar;
 
     @Column(name = "cod_postal")

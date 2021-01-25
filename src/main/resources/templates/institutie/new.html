@@ -58,7 +58,7 @@
                         <div class="row">
                             <div class="col-sm-12">
 
-                                <form th:object="${institutie}" th:action="@{/institutie/add}" method="post"
+                                <form th:object="${institutie}" th:action="@{/institutie/new}" method="post"
                                       class="form-horizontal">
                                     <input type="hidden" th:field="*{id}"/>
 
@@ -140,7 +140,7 @@
 
                                                 <option th:each="local : ${localitateList}"
                                                         th:value="${local.id}"
-                                                        th:text="${local.nume} - ${local.judet.nume}"></option>
+                                                        th:text="${local.nume} + '-' + ${local.judet.nume}"></option>
                                             </select>
 
                                         </div>
