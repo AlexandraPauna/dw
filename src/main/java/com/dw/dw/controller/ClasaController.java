@@ -1,24 +1,15 @@
 package com.dw.dw.controller;
 
-import com.dw.dw.model.Clasa;
-import com.dw.dw.model.InstitutieInvatamant;
+import com.dw.dw.model.*;
 
-import com.dw.dw.model.Profil;
-import com.dw.dw.model.Specializare;
-import com.dw.dw.service.ClasaService;
-import com.dw.dw.service.InstitutieInvatamantService;
-import com.dw.dw.service.ProfilService;
-import com.dw.dw.service.SpecializareService;
+import com.dw.dw.service.*;
 import com.dw.dw.utils.SelectListItem;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Convert;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,6 +29,9 @@ public class ClasaController {
 
     @Autowired
     InstitutieInvatamantService institutieInvatamantService;
+
+    @Autowired
+    ElevService elevService;
 
     @RequestMapping(value = "/clasa/new", method = RequestMethod.GET)
     public String newClasa(@RequestParam(value = "inst", required=false)  Integer instId, Model model) {
@@ -106,5 +100,22 @@ public class ClasaController {
         }
 
         return selectList;
+    }
+
+    @GetMapping("/clasa/show/{id}")
+    public String showClasa(@PathVariable String id, Model model){
+        model.addAttribute("clasa", clasaService.findClasaById(Integer.valueOf(id)));
+
+        List<Elev> elevList = elevService.getAllElev();
+        Collections.sort(elevList, new Comparator<Elev>() {
+            @Override
+            public int compare(Elev c1, Elev c2) {
+                return c1.getNume().compareTo(c2.getNume());
+            }
+        });
+
+        model.addAttribute("elevList", elevList);
+
+        return "clasa/show";
     }
 }
