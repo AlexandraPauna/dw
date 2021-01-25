@@ -30,7 +30,7 @@ public class Clasa {
     private Integer nivel;
 
     @Column(name = "an")
-    @NotEmpty(message = "*Introduceti anul curent al clasei!")
+    @NotNull(message = "*Introduceti anul curent al clasei!")
     private Integer an;
 
     @ManyToOne
