@@ -81,7 +81,7 @@ CREATE TABLE Specializare_Didactica(
 );
 
 CREATE TABLE Profesor_Specializare(
-                                      specializare_id NUMBER(4) GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) NOT NULL,
+                                      specializare_id NUMBER(4),
                                       profesor_id NUMBER(4) NOT NULL,
                                       CONSTRAINT fk_profesorSpecializare_specializareDidactica
                                           FOREIGN KEY(specializare_id) REFERENCES Specializare_Didactica(specializare_id),
@@ -104,7 +104,7 @@ CREATE TABLE Specializare(
 CREATE TABLE Clasa(
                       clasa_id NUMBER(4) GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) CONSTRAINT pk_clasa PRIMARY KEY,
                       nume VARCHAR2(50) NOT NULL,
-                      nivel NUMBER(1) NOT NULL,
+                      nivel NUMBER(2) NOT NULL,
                       an NUMBER(4) NOT NULL,
                       specializare_id NUMBER(4) NOT NULL,
                       institutie_id NUMBER(4) NOT NULL,
