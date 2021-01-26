@@ -59,7 +59,7 @@
                             <div class="col-sm-12">
 
                                 <form th:object="${clasaCursProfesor}"
-                                      th:action="@{'/clasa/addCurs?clasaId=' + ${clasaCursProfesor.clasa.id}}" method="post"
+                                      th:action="@{'/clasa/addCurs?clasaId=' + ${clasaCursProfesor.clasa != null ? clasaCursProfesor.clasa.id: ''} }" method="post"
                                       class="form-horizontal">
                                     <input type="hidden" th:field="*{id}"/>
 
@@ -174,26 +174,27 @@
     //incarcarea initiala a celor 2 dropdown-uri
     $(document).ready(function () {
         $(document).ready(function () {
-            var categoryId = [[${clasaCursProfesor.clasa.institutie.id}]];
-            $.ajax({
-                type: 'GET',
-                url: "/clasa/addCurs/loadClase/" + categoryId,
-                success: function(data){
-                    var slctSubcat=$('#subcatList'), option="";
-                    slctSubcat.empty();
+                var categoryId = [[${clasaCursProfesor.clasa.institutie.id}]];
+                $.ajax({
+                    type: 'GET',
+                    url: "/clasa/addCurs/loadClase/" + categoryId,
+                    success: function(data){
+                        var slctSubcat=$('#subcatList'), option="";
+                        slctSubcat.empty();
 
-                    for(var i=0; i<data.length; i++){
-                        option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";
+                        for(var i=0; i<data.length; i++){
+                            option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";
+                        }
+                        slctSubcat.append(option);
+                    },
+                    error:function(){
+                        alert("error");
                     }
-                    slctSubcat.append(option);
-                },
-                error:function(){
-                    alert("error");
-                }
-            });
+                });
+                $("#dropDownInst").val([[${clasaCursProfesor.clasa.institutie.id}]]);
+                $("#subcatList").val([[${clasaCursProfesor.clasa.id}]]);
         });
-        $("#dropDownInst").val([[${clasaCursProfesor.clasa.institutie.id}]]);
-        $("#subcatList").val([[${clasaCursProfesor.clasa.id}]]);
+
     });
     $(document).ready(function () {
         $(document).on("change", "#dropDownInst", function () {

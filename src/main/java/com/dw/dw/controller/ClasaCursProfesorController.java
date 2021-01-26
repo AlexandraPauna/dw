@@ -70,6 +70,8 @@ public class ClasaCursProfesorController {
         ClasaCursProfesor elem = new ClasaCursProfesor();
         if(clasaId !=null) {
             elem.setClasa(clasaService.findClasaById(clasaId));
+        }else {
+            elem.setClasa(clasaService.getAllClasa().get(0));
         }
         model.addAttribute("clasaCursProfesor", elem);
 
