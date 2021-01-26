@@ -367,6 +367,98 @@ values(40,'Timis',9);
 insert into Judet
 values(41,'Caras-Severin',9);
 
+--inserare Localitate-- 2= urban/ 1= rural
+insert into Localitate
+values(1,'Mioveni',2,6);
+
+insert into Localitate
+values(2,'Pitesti',2,6);
+
+insert into Localitate
+values(3,'Darmanesti',1,6);
+
+insert into Localitate
+values(4,'Campulung Muscel',2,6);
+
+insert into Localitate
+values(5,'Bebe Veche',1,40);
+
+insert into Localitate
+values(6,'Buzias',2,40);
+
+insert into Localitate
+values(7,'Viseu de Jos',1,35);
+
+insert into Localitate
+values(8,'Viseu de Sus',2,35);
+
+insert into Localitate
+values(9,'Sebesu de Sus',1,27);
+
+insert into Localitate
+values(10,'Sibiu',2,27);
+
+insert into Localitate
+values(11,'Agnita',1,27);
+
+insert into Localitate
+values(12,'Bran',1,28);
+
+insert into Localitate
+values(13,'Brasov',2,28);
+
+insert into Localitate
+values(14,'Breaza',1,28);
+
+insert into Localitate
+values(15,'Codlea',2,28);
+
+insert into Localitate
+values(16,'Filias',2,2);
+
+insert into Localitate
+values(17,'Balta Verde',1,2);
+
+insert into Localitate
+values(18,'Gheorgheni',2,30);
+
+insert into Localitate
+values(19,'Hagota',1,30);
+
+insert into Localitate
+values(20,'Iasi',2,23);
+
+insert into Localitate
+values(21,'Medeleni',1,23);
+
+insert into Localitate
+values(22,'Recas',2,40);
+
+insert into Localitate
+values(23,'Pietroasa',1,40);
+
+insert into Localitate
+values(24,'Ungureni',1,40);
+
+insert into Localitate
+values(25,'Pucioasa',2,40);
+
+insert into Localitate
+values(26,'Titu',2,40);
+
+insert into Localitate
+values(27,'Bragadiru',2,11);
+
+insert into Localitate
+values(28,'Popesti-Leordeni',2,11);
+
+insert into Localitate
+values(29,'Chiajna',1,11);
+
+insert into Localitate
+values(30,'Tunari',1,11);
+
+COMMIT;
 
 
 

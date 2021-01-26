@@ -12,7 +12,7 @@
     <link rel="shortcut icon" th:href="@{/ico/favicon.png}">
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>
-    <title>Adaugare clasa</title>
+    <title>Adaugare elev</title>
     <!-- Bootstrap core CSS -->
     <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
 
@@ -53,25 +53,25 @@
             <div class="row">
                 <div class="col-md-12 page-content">
                     <div class="inner-box category-content">
-                        <h2 class="title-2 uppercase"><strong> <i class="icon-docs"></i> Adauga clasa </strong></h2>
+                        <h2 class="title-2 uppercase"><strong> <i class="icon-docs"></i> Adauga profesor </strong></h2>
 
                         <div class="row">
                             <div class="col-sm-12">
 
-                                <form th:object="${clasa}"
-                                     th:action="@{'/clasa/new?inst=' + ${clasa.institutie.id}}" method="post"
+                                <form th:object="${elev}"
+                                      th:action="@{'/elev/new'}" method="post"
                                       class="form-horizontal">
                                     <input type="hidden" th:field="*{id}"/>
 
                                     <div class="content-subheading first">
                                         <i class="icon-book-open"></i>
                                         <strong>
-                                            Detalii
+                                            Informatii
                                         </strong>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Numele clasei</label>
+                                        <label  class="col-sm-3 col-form-label">Nume</label>
                                         <div class="col-sm-8">
                                             <label th:if="${#fields.hasErrors('nume')}" th:errors="*{nume}"
                                                    class="validation-message"></label>
@@ -80,31 +80,47 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Nivel</label>
+                                        <label  class="col-sm-3 col-form-label">Prenume</label>
                                         <div class="col-sm-8">
-                                            <label th:if="${#fields.hasErrors('nivel')}" th:errors="*{nivel}"
+                                            <label th:if="${#fields.hasErrors('prenume')}" th:errors="*{prenume}"
                                                    class="validation-message"></label>
-                                            <input type="number" class="form-control" th:field="*{nivel}" required/>
+                                            <input type="text" class="form-control" th:field="*{prenume}" required/>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">An</label>
+                                        <label  class="col-sm-3 col-form-label">Data Nasterii</label>
                                         <div class="col-sm-8">
-                                            <label th:if="${#fields.hasErrors('an')}" th:errors="*{an}"
+                                            <label th:if="${#fields.hasErrors('dataNasterii')}" th:errors="*{dataNasterii}"
                                                    class="validation-message"></label>
-                                            <input type="number" class="form-control" th:field="*{an}" required/>
+                                            <input id="date" type="text" class="form-control" th:field="*{dataNasterii}" />
+                                            <!--                                            id="date"-->
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Institutie</label>
+                                        <label  class="col-sm-3 col-form-label">Genul</label>
                                         <div class="col-sm-8">
-                                            <label th:if="${#fields.hasErrors('institutie')}" th:errors="*{institutie}"
+                                            <label th:if="${#fields.hasErrors('dataNasterii')}" th:errors="*{gen}"
                                                    class="validation-message"></label>
-                                            <select id="multiSelectElementsSelected" class="form-control"
-                                                    name="multiSelectElementsSelected"
-                                                    th:field="*{institutie}">
+                                            <input id="gen" type="text" class="form-control" th:field="*{gen}" />
+                                            <!--                                            id="date"-->
+                                        </div>
+                                    </div>
+
+                                    <div class="content-subheading">
+                                        <i class="icon-building-filled"></i>
+                                        <strong>
+                                            Detalii
+                                        </strong>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 col-form-label">Institutie de invatamant</label>
+                                        <div class="col-sm-8">
+
+                                            <select id="dropDownProfil" class="form-control"
+                                                    name="dropDownProfil"
+                                                    required>
 
                                                 <option th:each="elem : ${institutieList}"
                                                         th:value="${elem.id}"
@@ -114,41 +130,15 @@
                                         </div>
                                     </div>
 
-                                    <div class="content-subheading">
-                                        <i class="icon-building-filled"></i>
-                                        <strong>
-                                            Profil si Specializare
-                                        </strong>
-                                    </div>
-
                                     <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Profil</label>
-                                        <div class="col-sm-8">
-
-                                            <select id="dropDownProfil" class="form-control"
-                                                    name="dropDownProfil"
-                                                    required>
-
-                                                <option th:each="elem : ${profilList}"
-                                                        th:value="${elem.id}"
-                                                        th:text="${elem.denumire}"></option>
-                                            </select>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Specializare</label>
+                                        <label  class="col-sm-3 col-form-label">Clasa</label>
                                         <div class="col-sm-8">
 
                                             <select id="subcatList" class="form-control"
                                                     name="subcatList"
-                                                    th:field="*{specializare}"
+                                                    th:field="*{clasa}"
                                                     required>
 
-<!--                                                <option th:each="elem : ${profilList}"-->
-<!--                                                        th:value="${elem.id}"-->
-<!--                                                        th:text="${elem.denumire}"></option>-->
                                             </select>
 
                                         </div>
@@ -159,7 +149,7 @@
                                     <div class="form-group row">
 
                                         <div class="col-sm-8">
-                                            <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                                            <button id="btn" type="submit" class="btn btn-success btn-lg">Submit</button>
                                         </div>
                                     </div>
 
@@ -186,34 +176,20 @@
 
 <!-- Le javascript
 ================================================== -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(document).on("change", "#dropDownProfil", function () {
-            var categoryId = $(this).val();
-            $.ajax({
-                type: 'GET',
-                url: "/clasa/new/loadSpecializari/" + categoryId,
-                success: function(data){
-                    var slctSubcat=$('#subcatList'), option="";
-                    slctSubcat.empty();
-
-                    for(var i=0; i<data.length; i++){
-                        option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";
-                    }
-                    slctSubcat.append(option);
-                },
-                error:function(){
-                    alert("error");
-                }
-            });
-        });
-    });
-</script>
-
-
 <!-- Placed at the end of the document so the pages load faster -->
+<!-- Bootstrap -->
+<!-- Bootstrap DatePicker -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>-->
+<!--<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>-->
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+    $('#date').datepicker({ dateFormat: 'dd/mm/yy' }).val();
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/jquery/jquery-3.3.1.min.js">\x3C/script>')</script>
@@ -233,6 +209,29 @@
     $("#input-upload-img3").fileinput();
     $("#input-upload-img4").fileinput();
     $("#input-upload-img5").fileinput();
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(document).on("change", "#dropDownProfil", function () {
+            var categoryId = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: "/elev/new/loadClase/" + categoryId,
+                success: function(data){
+                    var slctSubcat=$('#subcatList'), option="";
+                    slctSubcat.empty();
+
+                    for(var i=0; i<data.length; i++){
+                        option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";
+                    }
+                    slctSubcat.append(option);
+                },
+                error:function(){
+                    alert("error");
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>
