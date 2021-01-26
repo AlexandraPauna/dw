@@ -108,6 +108,12 @@ public class ElevController {
         return "elev/show";
     }
 
+    @RequestMapping("elev/{id}/delete")
+    public String deleteById(@PathVariable String id){
+        elevService.deleteById(Integer.valueOf(id));
+        return "redirect:/elev/index";
+    }
+
     @InitBinder
     public void initBinder(final WebDataBinder binder){
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
