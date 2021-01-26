@@ -68,7 +68,7 @@ public class ProfesorController {
     }
 
     @RequestMapping(value = "/profesor/new", method = RequestMethod.POST)
-    public String savedClasa(@Valid Profesor profesor, BindingResult bindingResult, Model model) {
+    public String savedProfesor(@Valid Profesor profesor, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             if(profesor.getSpecializari() != null){
                 model.addAttribute("specializari", profesor.getSpecializari());
