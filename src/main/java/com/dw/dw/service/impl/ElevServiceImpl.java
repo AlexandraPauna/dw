@@ -46,7 +46,7 @@ public class ElevServiceImpl implements ElevService {
     }
 
     @Override
-    public Elev findClasaById(Integer id) {
+    public Elev findElevById(Integer id) {
         Optional<Elev> elemOptional = elevRepository.findById(id);
 
         if (!elemOptional.isPresent()) {

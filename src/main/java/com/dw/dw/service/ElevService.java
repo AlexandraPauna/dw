@@ -9,6 +9,6 @@ public interface ElevService {
     public Elev findById(int id);
     Elev saveElev(Elev elev);
     void deleteById(int id);
-    Elev findClasaById(Integer id);
+    Elev findElevById(Integer id);
     Elev updateElev(Elev elev);
 }
