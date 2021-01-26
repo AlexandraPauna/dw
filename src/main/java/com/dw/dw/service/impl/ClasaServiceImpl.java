@@ -62,4 +62,9 @@ public class ClasaServiceImpl implements ClasaService {
     public Clasa updateClasa(Clasa clasa) {
         return clasaRepository.save(clasa);
     }
+
+    @Override
+    public List<Clasa> getAllClasaForInstitutieInvatamant(InstitutieInvatamant institutieInvatamant) {
+        return clasaRepository.findByInstitutie(institutieInvatamant);
+    }
 }
