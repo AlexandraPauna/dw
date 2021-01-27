@@ -12,7 +12,7 @@
     <link rel="shortcut icon" th:href="@{/ico/favicon.png}">
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>
-    <title>BOOTCLASIFIED - Responsive Classified Theme</title>
+    <title>Note</title>
     <!-- Bootstrap core CSS -->
     <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
 
@@ -58,11 +58,11 @@
                         <ul class="nav nav-tabs " role="tablist">
                             <li role="presentation" class="active nav-item">
                                 <a class="nav-link">
-                                    <i class="icon-location-2"></i> Regiuni
+                                    <i class="icon-location-2"></i> Note
                                 </a>
-                                <!--                                <a-->
-                                <!--                                        style="top:0.4px" class="sell-your-item"-->
-                                <!--                                        th:href="@{/institutie/new}">Adauga Institutie</a>-->
+                                <a
+                                        style="top:0.4px" class="sell-your-item"
+                                        th:href="@{/nota/new}">Adauga Nota</a>
                             </li>
                         </ul>
 
@@ -71,11 +71,11 @@
                             <div role="tabpanel" class="tab-pane active" id="tab1">
                                 <div class="col-xl-12 tab-inner">
                                     <div class="row">
-                                        <ul th:if="${regiuneList != null}" th:each="regiune : ${regiuneList}"
-                                            class="cat-list col-md-3  col-6 col-xxs-12">
+                                        <ul th:if="${noteList != null}" th:each="nota : ${noteList}"
+                                            class="cat-list col-md-5  col-6 col-xxs-12">
                                             <li>
                                                 <a
-                                                   th:text="${regiune.nume}"></a>
+                                                   th:text="${nota.elev.nume} + ' ' +  ${nota.elev.prenume} + '    Nota: ' + ${nota.valoare} + '    Data: ' + ${nota.data}"></a>
                                             </li>
                                         </ul>
 

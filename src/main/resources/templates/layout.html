@@ -23,16 +23,16 @@
 
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-left">
-                    <li class="nav-item"><a th:href="@{/index}">Home</a></li>
-                    <li class="nav-item"><a th:href="@{/institutie/index}">Institutii</a></li>
+<!--                    <li class="nav-item"><a th:href="@{/index}">Home</a></li>-->
+<!--                    <li class="nav-item"><a th:href="@{/institutie/index}">Institutii</a></li>-->
 
                 </ul>
                 <ul class="nav navbar-nav ml-auto navbar-right">
 
-                    <li class="postadd nav-item">
-                        <a class="btn btn-block   btn-border btn-post btn-success nav-link"
-                           th:href="@{/institutie/new}">Adauga Institutie</a>
-                    </li>
+<!--                    <li class="postadd nav-item">-->
+<!--                        <a class="btn btn-block   btn-border btn-post btn-success nav-link"-->
+<!--                           th:href="@{/institutie/new}">Adauga Institutie</a>-->
+<!--                    </li>-->
 
                     <li class="dropdown no-arrow nav-item">
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown">
@@ -45,6 +45,17 @@
                                     <i class="icon-th-thumb"></i> Elev
                                 </a>
                             </li>
+                            <li class="dropdown-item">
+                                <a th:href="@{/nota/new}">
+                                    <i class="icon-th-thumb"></i> Nota
+                                </a>
+                            </li>
+                            <li class="dropdown-item">
+                                <a th:href="@{/profesor/new}">
+                                    <i class="icon-th-thumb"></i> Profesor
+                                </a>
+                            </li>
+                        </ul>
                         </ul>
                     </li>
                 </ul>

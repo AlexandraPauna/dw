@@ -30,7 +30,7 @@ public class Nota {
 
     @Column(name = "data")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @NotEmpty(message = "*Introduceti data la care a fost pusa nota!")
+    @NotNull(message = "*Introduceti data la care a fost pusa nota!")
     private Date data;
 
     @ManyToOne
