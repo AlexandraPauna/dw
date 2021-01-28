@@ -72,11 +72,20 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Elev</label>
+                                        <label  class="col-sm-3 col-form-label">Nume elev</label>
                                         <div class="col-sm-8">
                                             <label th:if="${#fields.hasErrors('elev')}" th:errors="*{elev.nume}"
                                                    class="validation-message"></label>
                                             <input type="text" class="form-control" th:field="*{elev.nume}" required readonly/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 col-form-label">Prenume elev</label>
+                                        <div class="col-sm-8">
+                                            <label th:if="${#fields.hasErrors('elev')}" th:errors="*{elev.prenume}"
+                                                   class="validation-message"></label>
+                                            <input type="text" class="form-control" th:field="*{elev.prenume}" required readonly/>
                                         </div>
                                     </div>
 
