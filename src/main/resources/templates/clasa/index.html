@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" xmlns:javascript="http://www.w3.org/1999/xhtml">
 <head>
@@ -11,7 +12,7 @@
     <link rel="shortcut icon" th:href="@{/ico/favicon.png}">
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>
-    <title>Home page</title>
+    <title>BOOTCLASIFIED - Responsive Classified Theme</title>
     <!-- Bootstrap core CSS -->
     <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
 
@@ -49,18 +50,19 @@
 
     <div class="main-container">
         <div class="container">
-            <!--Categories-->
             <div class="col-xl-12 content-box ">
                 <div class="row row-featured">
                     <div style="clear: both"></div>
                     <div class="tab-lite relative w100">
+                        <!-- Nav tabs -->
                         <ul class="nav nav-tabs " role="tablist">
                             <li role="presentation" class="active nav-item">
                                 <a class="nav-link">
-                                    <!--                                        href="#tab1" aria-controls="tab1"-->
-                                    <!--                                   role="tab" data-toggle="tab"-->
-                                    <i class="icon-location-2"></i> Vizualizati
+                                    <i class="icon-location-2"></i> Vizualizare Clase
                                 </a>
+<!--                                <a-->
+<!--                                        style="top:0.4px" class="sell-your-item"-->
+<!--                                        th:href="@{/clasa/new}">Adauga Clasa</a>-->
                             </li>
                         </ul>
 
@@ -69,60 +71,12 @@
                             <div role="tabpanel" class="tab-pane active" id="tab1">
                                 <div class="col-xl-12 tab-inner">
                                     <div class="row">
-                                        <ul class="cat-list col-md-4  col-6 col-xxs-12">
-                                            <li>
-                                                <i class="icon-map"></i>
-                                                <a href="tipzona/index">Tipuri Zona</a>
-                                            </li>
-                                            <li>
-                                                <i class="icon-location-2"></i>
-                                                <a href="regiune/index">Regiuni</a>
-                                            </li>
-                                            <li>
-                                                <i class="icon-location-2"></i>
-                                                <a href="subregiune/index">Subregiuni</a>
-                                            </li>
-                                        </ul>
-
-                                        <ul class="cat-list col-md-4  col-6 col-xxs-12">
-                                            <li>
-                                                <i class="icon-building-filled"></i>
-                                                <a href="institutie/index">Institutii</a>
-                                            </li>
-                                            <li>
-                                                <i class="icon-book-open"></i>
-                                                <a href="clasa/index">Clase</a>
-                                            </li>
-                                            <li>
-                                                <i class="icon-person"></i>
-                                                <a href="profesor/index">Profesori</a>
-                                            </li>
-                                        </ul>
-                                        <ul class="cat-list col-md-4  col-6 col-xxs-12">
-                                            <li>
-                                                <i class="icon-person"></i>
-                                                <a href="elev/index">Elevi</a>
-                                            </li>
-                                            <li>
-                                                <i class="icon-laptop"></i>
-                                                <a href="curs/index">Cursuri</a>
-                                            </li>
-                                            <li>
-                                                <i class="icon-network"></i>
-                                                <a href="nota/index">Note</a>
-                                            </li>
-                                        </ul>
-
-                                        <ul class="cat-list col-md-3  col-6 col-xxs-12">
-
-                                        </ul>
-
-                                        <ul
+                                        <ul th:if="${claseList != null}" th:each="cls : ${claseList}"
                                             class="cat-list col-md-3  col-6 col-xxs-12">
                                             <li>
-
+                                                <a th:href="@{'/clasa/show/' + ${cls.id}}"
+                                                   th:text="${cls.nivel} + ${cls.nume} + ' (' + ${cls.an} + ') ' + ${cls.institutie.nume}"  ></a>
                                             </li>
-
                                         </ul>
 
                                     </div>
@@ -134,14 +88,37 @@
 
                 </div>
             </div>
-
         </div>
-
     </div>
     <!-- /.main-container -->
+
 </div>
+<!-- /.wrapper -->
 
 
-<!-- /.header -->
+<!-- Le javascript
+================================================== -->
+
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery/jquery-3.3.1.min.js">\x3C/script>')</script>
+
+<script th:src="@{/js/vendors.min.js}"></script>
+
+<!-- include custom script for site  -->
+<script th:src="@{/js/main.min.js}"></script>
+
+
+<!-- include jquery file upload plugin  -->
+<script th:src="@{/js/fileinput.min.js}" type="text/javascript"></script>
+<script>
+    // initialize with defaults
+    $("#input-upload-img1").fileinput();
+    $("#input-upload-img2").fileinput();
+    $("#input-upload-img3").fileinput();
+    $("#input-upload-img4").fileinput();
+    $("#input-upload-img5").fileinput();
+</script>
 </body>
 </html>

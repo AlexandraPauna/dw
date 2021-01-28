@@ -1,5 +1,6 @@
 package com.dw.dw.controller;
 
+import com.dw.dw.model.ClasaCursProfesor;
 import com.dw.dw.model.Profesor;
 import com.dw.dw.model.SpecializareDidactica;
 import com.dw.dw.service.ProfesorService;
@@ -11,10 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
@@ -86,6 +84,33 @@ public class ProfesorController {
 
         Profesor savedProfesor = profesorService.saveProfesor(profesor);
 
+        return "redirect:/profesor/index";
+    }
+
+    @GetMapping("/profesor/show/{id}")
+    public String showInstitutie(@PathVariable String id, Model model){
+        Profesor prof = profesorService.findProfesorById(Integer.valueOf(id));
+        model.addAttribute("profesor", prof);
+        Set<SpecializareDidactica> specializari = prof.getSpecializari();
+        final String[] specializare = {""};
+        specializari.forEach(spec -> specializare[0] = specializare[0] + " " + spec.getNume());
+        model.addAttribute("specializari", specializare[0]);
+
+        Set<ClasaCursProfesor> clsCurs= prof.getClasaCursProfesorSet();
+        final List<String> cursuri = new ArrayList<String>();
+        clsCurs.forEach(item -> {
+            cursuri.add(item.getClasa().getNivel() + item.getClasa().getNume() + "-" + item.getClasa().getAn() + "   " + item.getCurs().getNume());
+
+        });
+        model.addAttribute("cursuri", cursuri);
+
+
+        return "profesor/show";
+    }
+
+    @RequestMapping("profesor/{id}/delete")
+    public String deleteById(@PathVariable String id){
+        profesorService.deleteById(Integer.valueOf(id));
         return "redirect:/profesor/index";
     }
 

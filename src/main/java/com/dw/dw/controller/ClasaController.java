@@ -33,6 +33,21 @@ public class ClasaController {
     @Autowired
     ElevService elevService;
 
+    @RequestMapping(value = "/clasa/index", method = RequestMethod.GET)
+    public String allCursuri(Model model) {
+
+        List<Clasa> clase = clasaService.getAllClasa();
+        Collections.sort(clase, new Comparator<Clasa>() {
+            @Override
+            public int compare(Clasa c1, Clasa c2) {
+                return c1.getNume().compareTo(c2.getNume());
+            }
+        });
+        model.addAttribute("claseList", clase);
+
+        return "/clasa/index";
+    }
+
     @RequestMapping(value = "/clasa/new", method = RequestMethod.GET)
     public String newClasa(@RequestParam(value = "inst", required=false)  Integer instId, Model model) {
         List<InstitutieInvatamant> institutii = institutieInvatamantService.getAllInstitutieInvatamant();
