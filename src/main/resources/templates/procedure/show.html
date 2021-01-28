@@ -49,48 +49,24 @@
     <div th:replace="layout :: header"></div>
 
     <div class="main-container">
+
         <div class="container">
-            <div class="col-xl-12 content-box ">
-                <div class="row row-featured">
-                    <div style="clear: both"></div>
-                    <div class="tab-lite relative w100">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs " role="tablist">
-                            <li role="presentation" class="active nav-item">
-                                <a class="nav-link">
-                                    <i class="icon-location-2"></i> Profesori
-                                </a>
-                                <a
-                                        style="top:0.4px" class="sell-your-item"
-                                        th:href="@{/profesor/new}">Adauga Profesor</a>
-                            </li>
-                        </ul>
+            <div class="row">
+                <div class="col-md-12 page-content col-thin-right">
+                    <div class="inner inner-box ads-details-wrapper">
+                        <h2> Procedura de calculare a promovabilitatii s-a efectuat cu succes. Va rugam verificati baza de date. </h2>
 
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="tab1">
-                                <div class="col-xl-12 tab-inner">
-                                    <div class="row">
-                                        <ul th:if="${profesoriList != null}" th:each="profesor : ${profesoriList}"
-                                            class="cat-list col-md-3  col-6 col-xxs-12">
-                                            <li>
-                                                <a th:href="@{'/profesor/show/' + ${profesor.id}}"
-                                                   th:text="${profesor.nume} + ' ' +  ${profesor.prenume}"></a>
-                                            </li>
-                                        </ul>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-<!--                        <h5 class="list-title"><strong>Clase si cursuri</strong></h5>-->
 
                     </div>
+                    <!--/.ads-details-wrapper-->
 
                 </div>
+                <!--/.page-content-->
+
             </div>
+
         </div>
+
     </div>
     <!-- /.main-container -->
 

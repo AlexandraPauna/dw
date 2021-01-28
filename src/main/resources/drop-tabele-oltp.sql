@@ -21,4 +21,5 @@ drop table judet;
 drop table subregiune;
 drop table Regiune;
 drop table Tip_Zona;
+commit;
 

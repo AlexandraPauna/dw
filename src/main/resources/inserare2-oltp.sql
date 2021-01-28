@@ -86,3 +86,4 @@ insert into elev(prenume, nume, data_nasterii, gen, clasa_id) values ('Alexandru
 insert into elev(prenume, nume, data_nasterii, gen, clasa_id) values ('Crina', 'Vlad', '11-JUN-2003', 'F', 8);
 insert into elev(prenume, nume, data_nasterii, gen, clasa_id) values ('Stefan', 'Moraru', '31-JAN-2002', 'M', 8);
 
+commit;
