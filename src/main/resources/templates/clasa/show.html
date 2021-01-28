@@ -134,7 +134,7 @@
                             <div class="row">
                                 <div class="ads-details-info col-md-8">
                                     <ul class="cat-list col-md-12  col-6 col-xxs-12">
-                                        <li th:each="elev : ${clasa.elevi}" class="breadcrumb-item" aria-current="page">
+                                        <li th:each="elev : ${clasa.elevi}" aria-current="page">
                                             <a th:href="@{'/elev/show/' + ${elev.id}}" th:text="${elev.nume} + ' ' + ${elev.prenume}"></a>
                                         </li>
                                         <li>
@@ -154,7 +154,7 @@
                             <div class="row">
                                 <div class="ads-details-info col-md-8">
                                     <ul class="cat-list col-md-12  col-6 col-xxs-12">
-                                        <li th:each="curs : ${clasa.clasaCursProfesorSet}" class="breadcrumb-item" aria-current="page">
+                                        <li th:each="curs : ${clasa.clasaCursProfesorSet}" aria-current="page">
                                             <a th:href="@{'/clasa/showCurs/' + ${curs.id}}" th:text="${curs.curs.nume} + ' - ' + ${curs.profesor.nume} + ' ' + ${curs.profesor.prenume}"></a>
                                         </li>
                                         <li>

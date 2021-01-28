@@ -127,6 +127,7 @@
 
                                             <select id="dropDownProf" class="form-control"
                                                     name="dropDownProf"
+                                                    th:field="*{profesor}"
                                                     required>
 
                                                 <option th:each="elem : ${profesorList}"

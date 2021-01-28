@@ -1,5 +1,6 @@
 package com.dw.dw.controller;
 
+import com.dw.dw.model.Clasa;
 import com.dw.dw.model.InstitutieInvatamant;
 import com.dw.dw.model.Localitate;
 import com.dw.dw.model.TipInstitutie;
@@ -67,7 +68,18 @@ public class InstitutieInvatamantController {
 
     @GetMapping("/institutie/show/{id}")
     public String showInstitutie(@PathVariable String id, Model model){
-        model.addAttribute("institutie", institutieInvatamantService.findInstitutieInvatamantById(Integer.valueOf(id)));
+        InstitutieInvatamant institutieInvatamant = institutieInvatamantService.findInstitutieInvatamantById(Integer.valueOf(id));
+        if (institutieInvatamant.getClase() != null) {
+            List<Clasa> clasaList = new ArrayList<> (institutieInvatamant.getClase());
+            Collections.sort(clasaList, new Comparator<Clasa>() {
+                @Override
+                public int compare(Clasa c1, Clasa c2) {
+                    return c1.getNume().compareTo(c2.getNume());
+                }
+            });
+            model.addAttribute("clasaList", clasaList);
+        }
+        model.addAttribute("institutie", institutieInvatamant);
 
         return "institutie/show";
     }
