@@ -29,6 +29,9 @@ public class ClasaCursProfesorController {
     @Autowired
     ClasaCursProfesorService clasaCursProfesorService;
 
+    @Autowired
+    NotaService notaService;
+
     @RequestMapping(value = "/clasa/addCurs", method = RequestMethod.GET)
     public String newClasaCursProfesor(@RequestParam(value = "clasaId", required=false)  Integer clasaId, Model model) {
         List<InstitutieInvatamant> institutii = institutieInvatamantService.getAllInstitutieInvatamant();
@@ -153,5 +156,23 @@ public class ClasaCursProfesorController {
 
         return "redirect:/clasaCursProfesor/show/" + clasaCursProfesor.getId();
 
+    }
+
+    @GetMapping("/clasaCursProfesor/show/{id}")
+    public String showClasa(@PathVariable String id, Model model){
+        model.addAttribute("clasaCursProfesor", clasaCursProfesorService.findClasaCursProfesorById(Integer.valueOf(id)));
+
+        ClasaCursProfesor clasaCursProfesor = clasaCursProfesorService.findClasaCursProfesorById(Integer.valueOf(id));
+        List<Elev> eleviList = new ArrayList<>(clasaCursProfesor.getClasa().getElevi());
+        Collections.sort(eleviList, new Comparator<Elev>() {
+            @Override
+            public int compare(Elev c1, Elev c2) {
+                return c1.getNume().compareTo(c2.getNume());
+            }
+        });
+
+        model.addAttribute("eleviList", eleviList);
+
+        return "clasaCursProfesor/show";
     }
 }
