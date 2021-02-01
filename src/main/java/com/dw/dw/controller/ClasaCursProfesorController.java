@@ -175,4 +175,12 @@ public class ClasaCursProfesorController {
 
         return "clasaCursProfesor/show";
     }
+
+    @RequestMapping("clasaCursProfesor/{id}/delete")
+    public String deleteById(@PathVariable String id){
+        ClasaCursProfesor currentElem = clasaCursProfesorService.findClasaCursProfesorById(Integer.valueOf(id));
+        int idCls = currentElem.getClasa().getId();
+        clasaCursProfesorService.deleteById(Integer.valueOf(id));
+        return "redirect:/clasa/show/" + idCls;
+    }
 }
