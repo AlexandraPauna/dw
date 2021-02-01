@@ -116,4 +116,42 @@ public class ClasaCursProfesorController {
         return selectList;
 
     }
+
+    @RequestMapping(value = "/clasaCursProfesor/update/{id}", method = RequestMethod.GET)
+    public String updateClasaCursProfesor(Model model,@PathVariable int id) {
+        List<Profesor> profesorList = profesorService.getAllProfesor();
+        Collections.sort(profesorList, new Comparator<Profesor>() {
+            @Override
+            public int compare(Profesor c1, Profesor c2) {
+                return c1.getNume().compareTo(c2.getNume());
+            }
+        });
+        model.addAttribute("profesorList", profesorList);
+
+        ClasaCursProfesor elem = clasaCursProfesorService.findClasaCursProfesorById(id);
+        model.addAttribute("clasaCursProfesor", elem);
+
+        return "/clasaCursProfesor/update";
+    }
+
+    @PostMapping(value = "/clasaCursProfesor/update/{id}")
+    public String updateClasCursProfesora(@PathVariable("id") int id,@Valid ClasaCursProfesor clasaCursProfesor,
+                              BindingResult result, Model model) {
+        if (result.hasErrors()) {
+
+            return "/clasaCursProfesor/update";
+        }
+        ClasaCursProfesor currentElem = clasaCursProfesorService.findClasaCursProfesorById(id);
+//        currentElem.setClasa(clasaCursProfesor.getClasa());
+//        currentElem.setCurs(clasaCursProfesor.getCurs());
+        currentElem.setProfesor(clasaCursProfesor.getProfesor());
+
+        clasaCursProfesorService.updateClasaCursProfesor(currentElem);
+        if (result.hasErrors()){
+            return "/clasaCursProfesor/update";
+        }
+
+        return "redirect:/clasaCursProfesor/show/" + clasaCursProfesor.getId();
+
+    }
 }
