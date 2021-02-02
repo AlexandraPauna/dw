@@ -1,10 +1,7 @@
 package com.dw.dw.controller;
 
 import com.dw.dw.model.*;
-import com.dw.dw.service.ElevService;
-import com.dw.dw.service.InstitutieInvatamantService;
-import com.dw.dw.service.ProfesorService;
-import com.dw.dw.service.SpecializareDidacticaService;
+import com.dw.dw.service.*;
 import com.dw.dw.utils.SelectListItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -30,6 +27,9 @@ public class ElevController {
     @Autowired
     InstitutieInvatamantService institutieInvatamantService;
 
+    @Autowired
+    ClasaService clasaService;
+
     @RequestMapping(value = "/elev/index", method = RequestMethod.GET)
     public String allElevi(Model model) {
 
@@ -46,13 +46,19 @@ public class ElevController {
     }
 
     @RequestMapping(value = "/elev/new", method = RequestMethod.GET)
-    public String newElev(Model model) {
+    public String newElev(@RequestParam(value = "clasaId", required=false)  Integer clasaId, Model model) {
         List<InstitutieInvatamant> institutieList = institutieInvatamantService.getAllInstitutieInvatamant();
 
         model.addAttribute("institutieList", institutieList);
         model.addAttribute("clase", getAllClase(institutieList.get(0)));
 
         Elev elev = new Elev();
+        if(clasaId !=null) {
+            elev.setClasa(clasaService.findClasaById(clasaId));
+        }
+        else {
+            elev.setClasa(clasaService.getAllClasa().get(0));
+        }
         model.addAttribute("elev", elev);
 
         return "/elev/new";

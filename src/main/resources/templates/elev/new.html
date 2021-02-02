@@ -211,7 +211,30 @@
     $("#input-upload-img5").fileinput();
 </script>
 <script type="text/javascript">
+    //incarcarea initiala a celor 2 dropdown-uri
+
     $(document).ready(function () {
+            var categoryId = [[${elev.clasa.institutie.id}]];
+            $.ajax({
+                type: 'GET',
+                url: "/elev/new/loadClase/" + categoryId,
+                success: function(data){
+                    var slctSubcat=$('#subcatList'), option="";
+                    slctSubcat.empty();
+
+                    for(var i=0; i<data.length; i++){
+                        option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";
+                    }
+                    slctSubcat.append(option);
+                },
+                error:function(){
+                    alert("error");
+                }
+            });
+            $("#dropDownProfil").val([[${elev.clasa.institutie.id}]]);
+            //$("#subcatList").val([[${elev.clasa.id}]]);
+            $("#subcatList").val($("#subcatList").data([[${elev.clasa.id}]]));
+
         $(document).on("change", "#dropDownProfil", function () {
             var categoryId = $(this).val();
             $.ajax({

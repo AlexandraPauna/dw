@@ -95,10 +95,6 @@
                                                     name="subcatList"
                                                     th:field="*{clasa}"
                                                     required>
-
-                                                <!--                                                <option th:each="elem : ${profilList}"-->
-                                                <!--                                                        th:value="${elem.id}"-->
-                                                <!--                                                        th:text="${elem.denumire}"></option>-->
                                             </select>
 
                                         </div>
@@ -170,11 +166,10 @@
 <!-- Le javascript
 ================================================== -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-<script type="text/javascript">
+<!--<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>-->
+<script th:inline="javascript">
     //incarcarea initiala a celor 2 dropdown-uri
     $(document).ready(function () {
-        $(document).ready(function () {
                 var categoryId = [[${clasaCursProfesor.clasa.institutie.id}]];
                 $.ajax({
                     type: 'GET',
@@ -194,10 +189,9 @@
                 });
                 $("#dropDownInst").val([[${clasaCursProfesor.clasa.institutie.id}]]);
                 $("#subcatList").val([[${clasaCursProfesor.clasa.id}]]);
-        });
+                console.log('HERE');
+                console.log([[${clasaCursProfesor.clasa.id}]]);
 
-    });
-    $(document).ready(function () {
         $(document).on("change", "#dropDownInst", function () {
             var categoryId = $(this).val();
             $.ajax({
@@ -217,7 +211,9 @@
                 }
             });
         });
+
     });
+
 </script>
 
 
