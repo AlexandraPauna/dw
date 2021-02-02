@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
@@ -66,7 +63,7 @@ public class CursController {
     }
 
     @PostMapping(value = "/curs/update/{id}")
-    public String updateInstitutie(@PathVariable("id") int id,@Valid Curs curs,
+    public String updateCurs(@PathVariable("id") int id,@Valid Curs curs,
                                    BindingResult result, Model model) {
         if (result.hasErrors()) {
 
@@ -82,6 +79,23 @@ public class CursController {
 
         allCursuri(model);
         return "redirect:/curs/index";
+    }
 
+    @GetMapping("/curs/show/{id}")
+    public String showCurs(@PathVariable String id, Model model){
+        Curs curs = cursService.findCursById(Integer.valueOf(id));
+        if (curs.getClasaCursProfesorSet() != null) {
+            List<ClasaCursProfesor> clasaCursProfesorList = new ArrayList<> (curs.getClasaCursProfesorSet());
+            Collections.sort(clasaCursProfesorList, new Comparator<ClasaCursProfesor>() {
+                @Override
+                public int compare(ClasaCursProfesor c1, ClasaCursProfesor c2) {
+                    return c1.getClasa().getInstitutie().getNume().compareTo(c2.getClasa().getInstitutie().getNume());
+                }
+            });
+            model.addAttribute("clasaCursProfesorList", clasaCursProfesorList);
+        }
+        model.addAttribute("curs", curs);
+
+        return "curs/show";
     }
 }
