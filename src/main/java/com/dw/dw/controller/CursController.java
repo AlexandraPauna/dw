@@ -1,8 +1,6 @@
 package com.dw.dw.controller;
 
-import com.dw.dw.model.Curs;
-import com.dw.dw.model.Profesor;
-import com.dw.dw.model.SpecializareDidactica;
+import com.dw.dw.model.*;
 import com.dw.dw.service.CursService;
 import com.dw.dw.service.ProfesorService;
 import com.dw.dw.service.SpecializareDidacticaService;
@@ -10,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -54,5 +54,34 @@ public class CursController {
         Curs savedCurs = cursService.saveCurs(curs);
 
         return "redirect:/curs/index";
+    }
+
+    @RequestMapping(value = "/curs/update/{id}", method = RequestMethod.GET)
+    public String updateCurs(Model model,@PathVariable int id) {
+
+        Curs curs = cursService.findCursById(id);
+        model.addAttribute("curs", curs);
+
+        return "/curs/update";
+    }
+
+    @PostMapping(value = "/curs/update/{id}")
+    public String updateInstitutie(@PathVariable("id") int id,@Valid Curs curs,
+                                   BindingResult result, Model model) {
+        if (result.hasErrors()) {
+
+            return "/curs/update";
+        }
+        Curs currentElem = cursService.findCursById(id);
+        currentElem.setNume(curs.getNume());
+
+        cursService.updateCurs(currentElem);
+        if (result.hasErrors()){
+            return "/curs/update";
+        }
+
+        allCursuri(model);
+        return "redirect:/curs/index";
+
     }
 }
