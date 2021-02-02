@@ -98,4 +98,11 @@ public class CursController {
 
         return "curs/show";
     }
+
+    @RequestMapping("curs/{id}/delete")
+    public String deleteById(@PathVariable String id){
+        //Curs curs
+        cursService.deleteById(Integer.valueOf(id));
+        return "redirect:/curs/index";
+    }
 }

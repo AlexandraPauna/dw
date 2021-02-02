@@ -44,6 +44,4 @@ public class Elev {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "elev")
     private Set<Nota> note = new HashSet<Nota>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "elev")
-    private Set<Istoric> istoric = new HashSet<Istoric>();
 }

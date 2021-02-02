@@ -24,7 +24,7 @@ public class Curs {
     @NotEmpty(message = "*Introduceti numele cursului!")
     private String nume;
 
-    @OneToMany(mappedBy = "curs", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "curs", cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ClasaCursProfesor> clasaCursProfesorSet = new HashSet<ClasaCursProfesor>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curs")
