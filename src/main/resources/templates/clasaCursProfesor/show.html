@@ -103,7 +103,7 @@
 
 
                         <div class="Ads-Details">
-                            <h5 class="list-title"><strong>Note</strong></h5>
+                            <h5 class="list-title"><strong>Elevi si Note</strong></h5>
 
                             <div class="row">
                                 <div class="ads-details-info col-md-8">
@@ -112,7 +112,7 @@
                                             <a th:href="@{'/elev/show/' + ${elev.id}}" th:text="${elev.nume} + ' ' + ${elev.prenume}"></a>
                                             <ul>
                                                 <li th:each="nota : ${elev.note}">
-                                                    <p th:text="' -> ' + ${nota.valoare}"></p>
+                                                    <p th:if="${nota.curs.id == clasaCursProfesor.curs.id}" th:text="' -> ' + ${nota.valoare}"></p>
                                                 </li>
                                             </ul>
                                             <a th:href="@{'/nota/new?elevId=' + ${elev.id}}">
