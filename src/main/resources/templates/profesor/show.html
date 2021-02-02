@@ -125,19 +125,18 @@
                         </div>
 
                         <div class="Ads-Details">
-                  <!--                        <div class="row">-->
-                  <!--                            <div class="ads-details-info col-md-8">-->
-                  <!--                                <ul class="cat-list col-md-12  col-6 col-xxs-12">-->
+                            <h5 class="list-title"><strong>Clase la care preda</strong></h5>
 
-                  <!--                                    <li th:if="${cursuri != null}" th:each="curs : ${cursuri}>-->
-                  <!--                                                                <a th:text="*{curs}"></a>-->
-                  <!--                                    </li>-->
+                            <div class="row">
+                                <div class="ads-details-info col-md-8">
+                                    <ul class="cat-list col-md-12  col-6 col-xxs-12">
+                                        <li th:each="elem : ${clasaCursProfesorList}" aria-current="page">
+                                            <a th:href="@{'/clasaCursProfesor/show/' + ${elem.id}}" th:text="${elem.clasa.nume} + ' (' + ${elem.clasa.institutie.nume} + ')'"></a>
+                                        </li>
+                                    </ul>
+                                </div>
 
-
-                  <!--                                </ul>-->
-                  <!--                            </div>-->
-                  <!--                        </div>-->
-
+                            </div>
                         </div>
 
 

@@ -96,14 +96,24 @@ public class ProfesorController {
         specializari.forEach(spec -> specializare[0] = specializare[0] + " " + spec.getNume());
         model.addAttribute("specializari", specializare[0]);
 
-        Set<ClasaCursProfesor> clsCurs= prof.getClasaCursProfesorSet();
-        final List<String> cursuri = new ArrayList<String>();
-        clsCurs.forEach(item -> {
-            cursuri.add(item.getClasa().getNivel() + item.getClasa().getNume() + "-" + item.getClasa().getAn() + "   " + item.getCurs().getNume());
+//        Set<ClasaCursProfesor> clsCurs= prof.getClasaCursProfesorSet();
+//        final List<String> cursuri = new ArrayList<String>();
+//        clsCurs.forEach(item -> {
+//            cursuri.add(item.getClasa().getNivel() + item.getClasa().getNume() + "-" + item.getClasa().getAn() + "   " + item.getCurs().getNume());
+//
+//        });
+//        model.addAttribute("cursuri", cursuri);
 
-        });
-        model.addAttribute("cursuri", cursuri);
-
+        if (prof.getClasaCursProfesorSet() != null) {
+            List<ClasaCursProfesor> clasaCursProfesorList = new ArrayList<> (prof.getClasaCursProfesorSet());
+            Collections.sort(clasaCursProfesorList, new Comparator<ClasaCursProfesor>() {
+                @Override
+                public int compare(ClasaCursProfesor c1, ClasaCursProfesor c2) {
+                    return c1.getClasa().getInstitutie().getNume().compareTo(c2.getClasa().getInstitutie().getNume());
+                }
+            });
+            model.addAttribute("clasaCursProfesorList", clasaCursProfesorList);
+        }
 
         return "profesor/show";
     }
