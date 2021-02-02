@@ -112,10 +112,10 @@
                                             <a th:href="@{'/elev/show/' + ${elev.id}}" th:text="${elev.nume} + ' ' + ${elev.prenume}"></a>
                                             <ul>
                                                 <li th:each="nota : ${elev.note}">
-                                                    <p th:text="' - ' + ${nota.valoare}"></p>
+                                                    <p th:text="' -> ' + ${nota.valoare}"></p>
                                                 </li>
                                             </ul>
-                                            <a th:href="@{'/nota/new/' + ${elev.id}}">
+                                            <a th:href="@{'/nota/new?elevId=' + ${elev.id}}">
                                                 <i class=" fa fa-plus"></i> Adauga Nota
                                             </a>
                                         </li>
