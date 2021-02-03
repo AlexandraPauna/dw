@@ -78,7 +78,7 @@ public class NotaController {
 
         Nota notaSaved = notaService.saveNota(nota);
 
-        return "redirect:/nota/index";
+        return "redirect:/elev/show/" + nota.getElev().getId();
     }
 
     @RequestMapping(value = "/nota/new/loadClasa/{profilId}", method = RequestMethod.GET)

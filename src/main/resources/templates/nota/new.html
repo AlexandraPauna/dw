@@ -211,49 +211,6 @@
     $("#input-upload-img4").fileinput();
     $("#input-upload-img5").fileinput();
 </script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(document).on("change", "#dropDownProfil", function () {
-            var categoryId = $(this).val();
-            $.ajax({
-                type: 'GET',
-                url: "/nota/new/loadClase/" + categoryId,
-                success: function(data){
-                    var slctSubcat=$('#subcatList'), option="";
-                    slctSubcat.empty();
 
-                    for(var i=0; i<data.length; i++){
-                        option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";
-                    }
-                    slctSubcat.append(option);
-                },
-                error:function(){
-                    alert("error");
-                }
-            });
-        });
-    });
-    $(document).ready(function () {
-        $(document).on("change", "#subcatList", function () {
-            var categoryId = $(this).val();
-            $.ajax({
-                type: 'GET',
-                url: "/nota/new/loadElevi/" + categoryId,
-                success: function(data){
-                    var slctSubcat=$('#subcatList2'), option="";
-                    slctSubcat.empty();
-
-                    for(var i=0; i<data.length; i++){
-                        option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";
-                    }
-                    slctSubcat.append(option);
-                },
-                error:function(){
-                    alert("error");
-                }
-            });
-        });
-    });
-</script>
 </body>
 </html>

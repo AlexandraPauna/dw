@@ -74,7 +74,7 @@
 
                                     <h4>Profesor</h4>
                                     <a th:href="@{'/profesor/show/' + ${clasaCursProfesor.profesor.id}}"
-                                       th:text="${clasaCursProfesor.profesor.nume != null ? clasaCursProfesor.profesor.nume:''}"></a>
+                                       th:text="${clasaCursProfesor.profesor.nume != null && clasaCursProfesor.profesor.prenume != null ? clasaCursProfesor.profesor.nume + ' ' + clasaCursProfesor.profesor.prenume:''}"></a>
                                 </div>
 
                                 <div class="col-md-4">

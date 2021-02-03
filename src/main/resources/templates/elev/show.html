@@ -94,8 +94,9 @@
                                     <aside class="panel panel-body panel-details">
                                         <ul>
                                             <li>
-                                                <p class=" no-margin " th:text="'CLASA: ' + ${elev.clasa != null ? elev.clasa.nume:''}">
+                                                <p class=" no-margin " th:href="@{'/clasa/show/' + ${elev.clasa.id}}" th:text="'CLASA: '">
                                                 </p>
+                                                <a th:href="@{'/clasa/show/' + ${elev.clasa.id}}" th:text="${elev.clasa != null ? elev.clasa.nume:''}"></a>
                                             </li>
                                             <li>
                                                 <p class=" no-margin " th:text="'NIVEL: ' + ${elev.clasa != null ? elev.clasa.nivel:''}">
@@ -106,7 +107,7 @@
                                                 </p>
                                             </li>
                                             <li>
-                                                <p class=" no-margin " th:text="'INSTITUTIE: ' + ${elev.clasa != null ? elev.clasa.institutie.nume:''}">
+                                                <p class=" no-margin " th:href="@{'/institutie/show/' + ${elev.clasa.institutie.id}}" th:text="'INSTITUTIE: ' + ${elev.clasa != null ? elev.clasa.institutie.nume:''}">
                                                 </p>
                                             </li>
 
