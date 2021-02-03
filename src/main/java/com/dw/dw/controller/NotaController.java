@@ -111,4 +111,12 @@ public class NotaController {
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
+
+    @GetMapping("/nota/show/{id}")
+    public String showNota(@PathVariable String id, Model model){
+        Nota nota = notaService.findNotaById(Integer.valueOf(id));
+        model.addAttribute("nota", nota);
+
+        return "nota/show";
+    }
 }
