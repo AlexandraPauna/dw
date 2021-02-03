@@ -49,74 +49,47 @@
     <div th:replace="layout :: header"></div>
 
     <div class="main-container">
-        <!--        <div class="container">-->
-        <!--            <div class="row">-->
-        <!--                <div class="col-md-12">-->
-
-        <!--                    <nav aria-label="breadcrumb" role="navigation" class="pull-left">-->
-        <!--                        <ol class="breadcrumb">-->
-        <!--                            <li class="breadcrumb-item"><a ><i class="icon-home fa"></i></a></li>-->
-        <!--                            <li th:each="category : ${recipe.categories}" class="breadcrumb-item" aria-current="page">-->
-        <!--                                <a th:href="@{'/category/show/' + ${category.categoryId}}" th:text="${category.name}"></a>-->
-        <!--                            </li>-->
-        <!--                        </ol>-->
-        <!--                    </nav>-->
-
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
 
         <div class="container">
             <div class="row">
                 <div class="col-md-12 page-content col-thin-right">
                     <div class="inner inner-box ads-details-wrapper">
-                        <h2 th:text="${clasa.nume}"></h2>
 
                         <div class="Ads-Details">
-                            <h5 class="list-title"><strong>Informatii Clasa</strong></h5>
+                            <h5 class="list-title"><strong>Informatii</strong></h5>
 
                             <div class="row">
                                 <div class="ads-details-info col-md-8">
                                     <h4>Institutie</h4>
-                                    <a th:href="@{'/institutie/show/' + ${clasa.institutie.id}}"
-                                       th:text="${clasa.institutie != null ? clasa.institutie.nume:''}"></a>
+                                    <a th:href="@{'/institutie/show/' + ${clasaCursProfesor.clasa.institutie.id}}"
+                                       th:text="${clasaCursProfesor.clasa.institutie != null ? clasaCursProfesor.clasa.institutie.nume:''}"></a>
 
-                                    <h4>Denumire</h4>
-                                    <p th:text="${clasa.nume}"></p>
+                                    <h4>Clasa</h4>
+                                    <a th:href="@{'/clasa/show/' + ${clasaCursProfesor.clasa.id}}"
+                                       th:text="${clasaCursProfesor.clasa.nume != null ? clasaCursProfesor.clasa.nume:''}"></a>
 
-                                    <h4>Anul de studiu</h4>
-                                    <p th:text="${clasa.nivel}"></p>
+                                    <h4>Materie</h4>
+                                    <a th:href="@{'/curs/show/' + ${clasaCursProfesor.curs.id}}"
+                                       th:text="${clasaCursProfesor.curs.nume != null ? clasaCursProfesor.curs.nume:''}"></a>
 
-                                    <h4>Anul de inceput al clasei</h4>
-                                    <p th:text="${clasa.an}"></p>
+                                    <h4>Profesor</h4>
+                                    <a th:href="@{'/profesor/show/' + ${clasaCursProfesor.profesor.id}}"
+                                       th:text="${clasaCursProfesor.profesor.nume != null ? clasaCursProfesor.profesor.nume:''}"></a>
                                 </div>
 
                                 <div class="col-md-4">
-                                    <h4>Profil si Specializare</h4>
-                                    <aside class="panel panel-body panel-details">
-                                        <ul>
-                                            <li>
-                                                <p class=" no-margin " th:text="'PROFIL: ' + ${clasa.specializare.profil != null ? clasa.specializare.profil.denumire:''}">
-                                                </p>
-                                            </li>
-                                            <li>
-                                                <p class=" no-margin " th:text="'SPECIALIZARE: ' + ${clasa.specializare != null ? clasa.specializare.denumire:''}">
-                                                </p>
-                                            </li>
-                                        </ul>
-                                    </aside>
                                     <div class="ads-action">
                                         <ul class="list-border">
 
                                             <li>
-                                                <a th:href="@{'/clasa/update/' + ${clasa.id}}">
-                                                    <i class=" fa fa-pen"></i> Editeaza Clasa
+                                                <a th:href="@{'/clasaCursProfesor/update/' + ${clasaCursProfesor.id}}">
+                                                    <i class=" fa fa-pen"></i> Editeaza Informatiile
                                                 </a>
                                             </li>
 
                                             <li>
-                                                <a th:href="@{'/clasa/' + ${clasa.id} + '/delete'}" style="color:#ff0000">
-                                                    <i class=" fa fa-power-off" style="color:#ff0000"></i> Sterge Clasa
+                                                <a th:href="@{'/clasaCursProfesor/' + ${clasaCursProfesor.id} + '/delete'}" style="color:#ff0000">
+                                                    <i class=" fa fa-power-off" style="color:#ff0000"></i> Sterge
                                                 </a>
                                             </li>
 
@@ -124,22 +97,26 @@
 
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
+
+
                         <div class="Ads-Details">
-                            <h5 class="list-title"><strong>Elevi</strong></h5>
+                            <h5 class="list-title"><strong>Elevi si Note</strong></h5>
 
                             <div class="row">
                                 <div class="ads-details-info col-md-8">
                                     <ul class="cat-list col-md-12  col-6 col-xxs-12">
-                                        <li th:each="elev : ${clasa.elevi}" aria-current="page">
+                                        <li th:each="elev : ${eleviList}" aria-current="page">
                                             <a th:href="@{'/elev/show/' + ${elev.id}}" th:text="${elev.nume} + ' ' + ${elev.prenume}"></a>
-                                        </li>
-                                        <li>
-                                            <a th:href="@{'/elev/new?clasaId=' + ${clasa.id}}">
-                                                <i class=" fa fa-plus"></i> Adauga Elev
+                                            <ul>
+                                                <li th:each="nota : ${elev.note}">
+                                                    <p th:if="${nota.curs.id == clasaCursProfesor.curs.id}" th:text="' -> ' + ${nota.valoare}"></p>
+                                                </li>
+                                            </ul>
+                                            <a th:href="@{'/nota/new?elevId=' + ${elev.id}}">
+                                                <i class=" fa fa-plus"></i> Adauga Nota
                                             </a>
                                         </li>
                                     </ul>
@@ -148,25 +125,6 @@
                             </div>
                         </div>
 
-                        <div class="Ads-Details">
-                            <h5 class="list-title"><strong>Cursuri</strong></h5>
-
-                            <div class="row">
-                                <div class="ads-details-info col-md-8">
-                                    <ul class="cat-list col-md-12  col-6 col-xxs-12">
-                                        <li th:each="elem : ${clasa.clasaCursProfesorSet}" aria-current="page">
-                                            <a th:href="@{'/clasaCursProfesor/show/' + ${elem.id}}" th:text="${elem.curs.nume} + ' - ' + ${elem.profesor.nume} + ' ' + ${elem.profesor.prenume}"></a>
-                                        </li>
-                                        <li>
-                                            <a th:href="@{'/clasa/addCurs?clasaId=' + ${clasa.id}}">
-                                                <i class=" fa fa-plus"></i> Adauga Curs Pentru Clasa
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
                     </div>
                     <!--/.ads-details-wrapper-->
 

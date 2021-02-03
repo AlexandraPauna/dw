@@ -53,67 +53,46 @@
             <div class="row">
                 <div class="col-md-12 page-content">
                     <div class="inner-box category-content">
-                        <h2 class="title-2 uppercase"><strong> <i class="icon-docs"></i> Adauga materie pentru o clasa </strong></h2>
+                        <h2 class="title-2 uppercase">
+                            <strong> <i class="icon-docs"></i>
+                            Editeaza cursul clasei
+                            <a th:action="@{'/clasa/show/' + clasaCursProfesor.clasa.id}" th:text="${clasaCursProfesor.clasa.nume}"></a>
+                            </strong>
+                        </h2>
 
                         <div class="row">
                             <div class="col-sm-12">
 
                                 <form th:object="${clasaCursProfesor}"
-                                      th:action="@{'/clasa/addCurs?clasaId=' + ${clasaCursProfesor.clasa != null ? clasaCursProfesor.clasa.id: ''} }" method="post"
+                                      th:action="@{/clasaCursProfesor/update/{id}(id=${clasaCursProfesor.id})}" method="post"
                                       class="form-horizontal">
                                     <input type="hidden" th:field="*{id}"/>
 
                                     <div class="content-subheading first">
                                         <i class="icon-book-open"></i>
                                         <strong>
-                                            Selectati
+                                            Informatii
                                         </strong>
                                     </div>
 
                                     <div class="form-group row">
                                         <label  class="col-sm-3 col-form-label">Institutie</label>
                                         <div class="col-sm-8">
-                                            <label th:if="${#fields.hasErrors('clasa.institutie')}" th:errors="*{clasa.institutie}"
-                                                   class="validation-message"></label>
-                                            <select id="dropDownInst" class="form-control"
-                                                    name="dropDownInst"
-                                                    th:field="*{clasa.institutie}">
-
-                                                <option th:each="elem : ${institutieList}"
-                                                        th:value="${elem.id}"
-                                                        th:text="${elem.nume}"></option>
-                                            </select>
-
+                                            <input type="text" class="form-control" th:field="*{clasa.institutie.nume}" readonly/>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label  class="col-sm-3 col-form-label">Clasa</label>
                                         <div class="col-sm-8">
-
-                                            <select id="subcatList" class="form-control"
-                                                    name="subcatList"
-                                                    th:field="*{clasa}"
-                                                    required>
-                                            </select>
-
+                                            <input type="text" class="form-control" th:field="*{clasa.nume}" readonly/>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label  class="col-sm-3 col-form-label">Materie</label>
                                         <div class="col-sm-8">
-
-                                            <select id="dropDownMaterie" class="form-control"
-                                                    name="dropDownMaterie"
-                                                    th:field="*{curs}"
-                                                    required>
-
-                                                <option th:each="elem : ${cursList}"
-                                                        th:value="${elem.id}"
-                                                        th:text="${elem.nume}"></option>
-                                            </select>
-
+                                            <input type="text" class="form-control" th:field="*{curs.nume}" readonly/>
                                         </div>
                                     </div>
 
@@ -165,57 +144,6 @@
 
 <!-- Le javascript
 ================================================== -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<!--<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>-->
-<script th:inline="javascript">
-    //incarcarea initiala a celor 2 dropdown-uri
-    $(document).ready(function () {
-                var categoryId = [[${clasaCursProfesor.clasa.institutie.id}]];
-                $.ajax({
-                    type: 'GET',
-                    url: "/clasa/addCurs/loadClase/" + categoryId,
-                    success: function(data){
-                        var slctSubcat=$('#subcatList'), option="";
-                        slctSubcat.empty();
-
-                        for(var i=0; i<data.length; i++){
-                            option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";
-                        }
-                        slctSubcat.append(option);
-                    },
-                    error:function(){
-                        alert("error");
-                    }
-                });
-                $("#dropDownInst").val([[${clasaCursProfesor.clasa.institutie.id}]]);
-                $("#subcatList").val([[${clasaCursProfesor.clasa.id}]]);
-                console.log('HERE');
-                console.log([[${clasaCursProfesor.clasa.id}]]);
-
-        $(document).on("change", "#dropDownInst", function () {
-            var categoryId = $(this).val();
-            $.ajax({
-                type: 'GET',
-                url: "/clasa/addCurs/loadClase/" + categoryId,
-                success: function(data){
-                    var slctSubcat=$('#subcatList'), option="";
-                    slctSubcat.empty();
-
-                    for(var i=0; i<data.length; i++){
-                        option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";
-                    }
-                    slctSubcat.append(option);
-                },
-                error:function(){
-                    alert("error");
-                }
-            });
-        });
-
-    });
-
-</script>
-
 
 <!-- Placed at the end of the document so the pages load faster -->
 

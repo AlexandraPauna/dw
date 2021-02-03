@@ -40,7 +40,7 @@ public class Clasa {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clasa")
     private Set<Elev> elevi = new HashSet<Elev>();
 
-    @OneToMany(mappedBy = "clasa", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "clasa", cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ClasaCursProfesor> clasaCursProfesorSet = new HashSet<ClasaCursProfesor>();
 
     @ManyToOne

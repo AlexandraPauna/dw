@@ -1,6 +1,7 @@
 package com.dw.dw.controller;
 
 import com.dw.dw.model.ClasaCursProfesor;
+import com.dw.dw.model.Curs;
 import com.dw.dw.model.Profesor;
 import com.dw.dw.model.SpecializareDidactica;
 import com.dw.dw.service.ProfesorService;
@@ -96,14 +97,24 @@ public class ProfesorController {
         specializari.forEach(spec -> specializare[0] = specializare[0] + " " + spec.getNume());
         model.addAttribute("specializari", specializare[0]);
 
-        Set<ClasaCursProfesor> clsCurs= prof.getClasaCursProfesorSet();
-        final List<String> cursuri = new ArrayList<String>();
-        clsCurs.forEach(item -> {
-            cursuri.add(item.getClasa().getNivel() + item.getClasa().getNume() + "-" + item.getClasa().getAn() + "   " + item.getCurs().getNume());
+//        Set<ClasaCursProfesor> clsCurs= prof.getClasaCursProfesorSet();
+//        final List<String> cursuri = new ArrayList<String>();
+//        clsCurs.forEach(item -> {
+//            cursuri.add(item.getClasa().getNivel() + item.getClasa().getNume() + "-" + item.getClasa().getAn() + "   " + item.getCurs().getNume());
+//
+//        });
+//        model.addAttribute("cursuri", cursuri);
 
-        });
-        model.addAttribute("cursuri", cursuri);
-
+        if (prof.getClasaCursProfesorSet() != null) {
+            List<ClasaCursProfesor> clasaCursProfesorList = new ArrayList<> (prof.getClasaCursProfesorSet());
+            Collections.sort(clasaCursProfesorList, new Comparator<ClasaCursProfesor>() {
+                @Override
+                public int compare(ClasaCursProfesor c1, ClasaCursProfesor c2) {
+                    return c1.getClasa().getInstitutie().getNume().compareTo(c2.getClasa().getInstitutie().getNume());
+                }
+            });
+            model.addAttribute("clasaCursProfesorList", clasaCursProfesorList);
+        }
 
         return "profesor/show";
     }
@@ -137,5 +148,50 @@ public class ProfesorController {
     public void initBinder(final WebDataBinder binder){
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
+    @RequestMapping(value = "/profesor/update/{id}", method = RequestMethod.GET)
+    public String updateCurs(Model model,@PathVariable int id) {
+        List<SpecializareDidactica> specializareDidacticaList = specializareDidacticaService.getAllSpecializareDidactica();
+        Collections.sort(specializareDidacticaList, new Comparator<SpecializareDidactica>() {
+            @Override
+            public int compare(SpecializareDidactica c1, SpecializareDidactica c2) {
+                return c1.getNume().compareTo(c2.getNume());
+            }
+        });
+        specializareDidacticaCache = new HashMap<String, SpecializareDidactica>();
+        for (SpecializareDidactica specializare : specializareDidacticaList) {
+            specializareDidacticaCache.put(String.valueOf(specializare.getId()), specializare);
+        }
+
+        model.addAttribute("specializareDidacticaList", specializareDidacticaList);
+
+        Profesor profesor = profesorService.findProfesorById(id);
+        model.addAttribute("profesor", profesor);
+
+        return "/profesor/update";
+    }
+
+    @PostMapping(value = "/profesor/update/{id}")
+    public String updateCurs(@PathVariable("id") int id,@Valid Profesor profesor,
+                             BindingResult result, Model model) {
+        if (result.hasErrors()) {
+
+            return "/profesor/update";
+        }
+        Profesor currentElem = profesorService.findProfesorById(id);
+        currentElem.setNume(profesor.getNume());
+        currentElem.setPrenume(profesor.getPrenume());
+        currentElem.setDataNasterii(profesor.getDataNasterii());
+        currentElem.setGradDidactic(profesor.getGradDidactic());
+        currentElem.setSpecializari(profesor.getSpecializari());
+
+        profesorService.updateProfesor(currentElem);
+        if (result.hasErrors()){
+            return "/profesor/update";
+        }
+
+        allProfesori(model);
+        return "redirect:/profesor/index";
     }
 }

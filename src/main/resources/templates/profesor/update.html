@@ -12,7 +12,7 @@
     <link rel="shortcut icon" th:href="@{/ico/favicon.png}">
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>
-    <title>Adaugare institutie invatamant</title>
+    <title>Adaugare profesor</title>
     <!-- Bootstrap core CSS -->
     <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
 
@@ -53,92 +53,91 @@
             <div class="row">
                 <div class="col-md-12 page-content">
                     <div class="inner-box category-content">
-                        <h2 class="title-2 uppercase"><strong> <i class="icon-docs"></i> Adauga materie pentru o clasa </strong></h2>
+                        <h2 class="title-2 uppercase"><strong> <i class="icon-docs"></i> Editeaza profesor </strong></h2>
 
                         <div class="row">
                             <div class="col-sm-12">
 
-                                <form th:object="${clasaCursProfesor}"
-                                      th:action="@{'/clasa/addCurs?clasaId=' + ${clasaCursProfesor.clasa != null ? clasaCursProfesor.clasa.id: ''} }" method="post"
+                                <form th:object="${profesor}"
+                                      th:action="@{/profesor/update/{id}(id=${profesor.id})}" method="post"
                                       class="form-horizontal">
                                     <input type="hidden" th:field="*{id}"/>
 
                                     <div class="content-subheading first">
                                         <i class="icon-book-open"></i>
                                         <strong>
-                                            Selectati
+                                            Informatii
                                         </strong>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Institutie</label>
+                                        <label  class="col-sm-3 col-form-label">Nume</label>
                                         <div class="col-sm-8">
-                                            <label th:if="${#fields.hasErrors('clasa.institutie')}" th:errors="*{clasa.institutie}"
+                                            <label th:if="${#fields.hasErrors('nume')}" th:errors="*{nume}"
                                                    class="validation-message"></label>
-                                            <select id="dropDownInst" class="form-control"
-                                                    name="dropDownInst"
-                                                    th:field="*{clasa.institutie}">
-
-                                                <option th:each="elem : ${institutieList}"
-                                                        th:value="${elem.id}"
-                                                        th:text="${elem.nume}"></option>
-                                            </select>
-
+                                            <input type="text" class="form-control" th:field="*{nume}" required/>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Clasa</label>
+                                        <label  class="col-sm-3 col-form-label">Prenume</label>
                                         <div class="col-sm-8">
-
-                                            <select id="subcatList" class="form-control"
-                                                    name="subcatList"
-                                                    th:field="*{clasa}"
-                                                    required>
-                                            </select>
-
+                                            <label th:if="${#fields.hasErrors('prenume')}" th:errors="*{prenume}"
+                                                   class="validation-message"></label>
+                                            <input type="text" class="form-control" th:field="*{prenume}" required/>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Materie</label>
+                                        <label  class="col-sm-3 col-form-label">Data Nasterii</label>
                                         <div class="col-sm-8">
+                                            <label th:if="${#fields.hasErrors('dataNasterii')}" th:errors="*{dataNasterii}"
+                                                   class="validation-message"></label>
+                                            <input id="date" type="text" class="form-control" th:field="*{dataNasterii}" />
+                                            <!--                                            id="date"-->
+                                        </div>
+                                    </div>
 
-                                            <select id="dropDownMaterie" class="form-control"
-                                                    name="dropDownMaterie"
-                                                    th:field="*{curs}"
-                                                    required>
+                                    <div class="content-subheading">
+                                        <i class="icon-building-filled"></i>
+                                        <strong>
+                                            Detalii
+                                        </strong>
+                                    </div>
 
-                                                <option th:each="elem : ${cursList}"
-                                                        th:value="${elem.id}"
-                                                        th:text="${elem.nume}"></option>
-                                            </select>
-
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 col-form-label">Grad Didactic</label>
+                                        <div class="col-sm-8">
+                                            <label th:if="${#fields.hasErrors('gradDidactic')}" th:errors="*{gradDidactic}"
+                                                   class="validation-message"></label>
+                                            <input type="number" class="form-control" th:field="*{gradDidactic}" />
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Profesor</label>
+                                        <label  class="col-sm-3 col-form-label">Specializari Didactice</label>
                                         <div class="col-sm-8">
+                                            <label th:if="${#fields.hasErrors('specializari')}" th:errors="*{specializari}"
+                                                   class="validation-message"></label>
+                                            <select id="multiSelectElementsSelected" class="form-control"
+                                                    name="multiSelectElementsSelected"
+                                                    multiple="multiple"
+                                                    th:field="*{specializari}">
 
-                                            <select id="dropDownProf" class="form-control"
-                                                    name="dropDownProf"
-                                                    th:field="*{profesor}"
-                                                    required>
-
-                                                <option th:each="elem : ${profesorList}"
-                                                        th:value="${elem.id}"
-                                                        th:text="${elem.nume} + ' ' + ${elem.prenume}"></option>
+                                                <option th:each="specializare : ${specializareDidacticaList}"
+                                                        th:value="${specializare.id}"
+                                                        th:text="${specializare.nume}"></option>
                                             </select>
 
                                         </div>
                                     </div>
+
 
                                     <!-- Button  -->
                                     <div class="form-group row">
 
                                         <div class="col-sm-8">
-                                            <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                                            <button id="btn" type="submit" class="btn btn-success btn-lg">Submit</button>
                                         </div>
                                     </div>
 
@@ -165,59 +164,20 @@
 
 <!-- Le javascript
 ================================================== -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<!--<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>-->
-<script th:inline="javascript">
-    //incarcarea initiala a celor 2 dropdown-uri
-    $(document).ready(function () {
-                var categoryId = [[${clasaCursProfesor.clasa.institutie.id}]];
-                $.ajax({
-                    type: 'GET',
-                    url: "/clasa/addCurs/loadClase/" + categoryId,
-                    success: function(data){
-                        var slctSubcat=$('#subcatList'), option="";
-                        slctSubcat.empty();
-
-                        for(var i=0; i<data.length; i++){
-                            option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";
-                        }
-                        slctSubcat.append(option);
-                    },
-                    error:function(){
-                        alert("error");
-                    }
-                });
-                $("#dropDownInst").val([[${clasaCursProfesor.clasa.institutie.id}]]);
-                $("#subcatList").val([[${clasaCursProfesor.clasa.id}]]);
-                console.log('HERE');
-                console.log([[${clasaCursProfesor.clasa.id}]]);
-
-        $(document).on("change", "#dropDownInst", function () {
-            var categoryId = $(this).val();
-            $.ajax({
-                type: 'GET',
-                url: "/clasa/addCurs/loadClase/" + categoryId,
-                success: function(data){
-                    var slctSubcat=$('#subcatList'), option="";
-                    slctSubcat.empty();
-
-                    for(var i=0; i<data.length; i++){
-                        option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";
-                    }
-                    slctSubcat.append(option);
-                },
-                error:function(){
-                    alert("error");
-                }
-            });
-        });
-
-    });
-
-</script>
-
-
 <!-- Placed at the end of the document so the pages load faster -->
+<!-- Bootstrap -->
+<!-- Bootstrap DatePicker -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>-->
+<!--<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>-->
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+    $('#date').datepicker({ dateFormat: 'dd/mm/yy' }).val();
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/jquery/jquery-3.3.1.min.js">\x3C/script>')</script>

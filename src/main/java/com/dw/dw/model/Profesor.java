@@ -46,6 +46,6 @@ public class Profesor {
 //    @JoinTable(name = "Institutie_Profesor", joinColumns = @JoinColumn(name = "profesor_id"), inverseJoinColumns = @JoinColumn(name = "institutie_id"))
 //    private Set<InstitutieInvatamant> institutii = new HashSet<InstitutieInvatamant>();
 
-    @OneToMany(mappedBy = "profesor", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "profesor", cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ClasaCursProfesor> clasaCursProfesorSet = new HashSet<ClasaCursProfesor>();
 }
