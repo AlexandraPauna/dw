@@ -80,7 +80,7 @@ public class ElevController {
 
         Elev elevSaved = elevService.saveElev(elev);
 
-        return "redirect:/elev/index";
+        return "redirect:/clasa/show/" + elev.getClasa().getId();
     }
 
     @RequestMapping(value = "/elev/new/loadClase/{profilId}", method = RequestMethod.GET)
