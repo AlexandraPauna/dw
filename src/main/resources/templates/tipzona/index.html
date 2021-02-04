@@ -74,7 +74,7 @@
                                         <ul th:if="${tipZonaList != null}" th:each="tipZona : ${tipZonaList}"
                                             class="cat-list col-md-3  col-6 col-xxs-12">
                                             <li>
-                                                <a
+                                                <a th:href="@{'/tipzona/show/' + ${tipZona.id}}"
                                                    th:text="${tipZona.nume}"></a>
                                             </li>
                                         </ul>

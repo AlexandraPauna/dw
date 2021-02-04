@@ -94,8 +94,9 @@
                                     <aside class="panel panel-body panel-details">
                                         <ul>
                                             <li>
-                                                <p class=" no-margin " th:text="'CLASA: ' + ${elev.clasa != null ? elev.clasa.nume:''}">
+                                                <p class=" no-margin " th:href="@{'/clasa/show/' + ${elev.clasa.id}}" th:text="'CLASA: '">
                                                 </p>
+                                                <a th:href="@{'/clasa/show/' + ${elev.clasa.id}}" th:text="${elev.clasa != null ? elev.clasa.nume:''}"></a>
                                             </li>
                                             <li>
                                                 <p class=" no-margin " th:text="'NIVEL: ' + ${elev.clasa != null ? elev.clasa.nivel:''}">
@@ -106,7 +107,7 @@
                                                 </p>
                                             </li>
                                             <li>
-                                                <p class=" no-margin " th:text="'INSTITUTIE: ' + ${elev.clasa != null ? elev.clasa.institutie.nume:''}">
+                                                <p class=" no-margin " th:href="@{'/institutie/show/' + ${elev.clasa.institutie.id}}" th:text="'INSTITUTIE: ' + ${elev.clasa != null ? elev.clasa.institutie.nume:''}">
                                                 </p>
                                             </li>
 
@@ -142,7 +143,8 @@
                                <div class="ads-details-info col-md-8">
                                     <ul class="cat-list col-md-12  col-6 col-xxs-12">
                                         <li th:each="nota : ${elev.note}" aria-current="page">
-                                            <a th:text="${nota.valoare + ' ' + nota.curs.nume}"></a>
+                                            <a th:href="@{'/nota/show/' + ${nota.id}}"
+                                               th:text="${nota.valoare + ' ' + nota.curs.nume}"></a>
                                         </li>
                                         <li>
                                            <a th:href="@{'/nota/new?elevId=' + ${elev.id}}">

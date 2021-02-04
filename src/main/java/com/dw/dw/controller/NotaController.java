@@ -78,7 +78,7 @@ public class NotaController {
 
         Nota notaSaved = notaService.saveNota(nota);
 
-        return "redirect:/nota/index";
+        return "redirect:/elev/show/" + nota.getElev().getId();
     }
 
     @RequestMapping(value = "/nota/new/loadClasa/{profilId}", method = RequestMethod.GET)
@@ -110,5 +110,57 @@ public class NotaController {
     public void initBinder(final WebDataBinder binder){
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
+    @GetMapping("/nota/show/{id}")
+    public String showNota(@PathVariable String id, Model model){
+        Nota nota = notaService.findNotaById(Integer.valueOf(id));
+        model.addAttribute("nota", nota);
+
+        return "nota/show";
+    }
+
+    @RequestMapping(value = "/nota/update/{id}", method = RequestMethod.GET)
+    public String updateNota(Model model,@PathVariable int id) {
+        Nota nota = notaService.findNotaById(id);
+        model.addAttribute("nota", nota);
+
+        List<Curs> cursList = new ArrayList<Curs>();
+        nota.getElev().getClasa().getClasaCursProfesorSet().forEach(item -> {
+            cursList.add(item.getCurs());
+        });
+
+        model.addAttribute("cursList", cursList);
+
+        return "/nota/update";
+    }
+
+    @PostMapping(value = "/nota/update/{id}")
+    public String updateNota(@PathVariable("id") int id,@Valid Nota nota,
+                              BindingResult result, Model model) {
+        if (result.hasErrors()) {
+
+            return "/nota/update";
+        }
+        Nota currentElem = notaService.findNotaById(id);
+        currentElem.setCurs(nota.getCurs());
+        currentElem.setData(nota.getData());
+        currentElem.setValoare(nota.getValoare());
+
+        notaService.updateNota(currentElem);
+        if (result.hasErrors()){
+            return "/nota/update";
+        }
+
+        return "redirect:/elev/show/" + nota.getElev().getId();
+
+    }
+
+    @RequestMapping("nota/{id}/delete")
+    public String deleteById(@PathVariable String id){
+        Nota currentElem = notaService.findNotaById(Integer.valueOf(id));
+        int idElev = currentElem.getElev().getId();
+        notaService.deleteById(Integer.valueOf(id));
+        return "redirect:/elev/show/" + idElev;
     }
 }

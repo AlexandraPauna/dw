@@ -33,4 +33,7 @@ public class Adresa {
     @ManyToOne
     @JoinColumn(name = "localitate_id", nullable=false)
     private Localitate localitate;
+
+    @OneToOne(mappedBy = "adresa")
+    private InstitutieInvatamant institutieInvatamant;
 }

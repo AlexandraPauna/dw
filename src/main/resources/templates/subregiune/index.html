@@ -74,7 +74,7 @@
                                         <ul th:if="${subregiuneList != null}" th:each="subregiune : ${subregiuneList}"
                                             class="cat-list col-md-3  col-6 col-xxs-12">
                                             <li>
-                                                <a
+                                                <a th:href="@{'/subregiune/show/' + ${subregiune.id}}"
                                                    th:text="${subregiune.nume} + '-' + ${subregiune.regiune.nume}"></a>
                                             </li>
                                         </ul>

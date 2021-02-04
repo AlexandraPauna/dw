@@ -12,7 +12,7 @@
     <link rel="shortcut icon" th:href="@{/ico/favicon.png}">
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>
-    <title>Adaugare elev</title>
+    <title>Adaugare Nota</title>
     <!-- Bootstrap core CSS -->
     <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
 
@@ -53,15 +53,16 @@
             <div class="row">
                 <div class="col-md-12 page-content">
                     <div class="inner-box category-content">
-                        <h2 class="title-2 uppercase"><strong> <i class="icon-docs"></i> Adauga elev </strong></h2>
+                        <h2 class="title-2 uppercase"><strong> <i class="icon-docs"></i> Adauga nota </strong></h2>
 
                         <div class="row">
                             <div class="col-sm-12">
 
-                                <form th:object="${elev}"
-                                      th:action="@{'/elev/new'}" method="post"
+                                <form th:object="${nota}"
+                                      th:action="@{/nota/update/{id}(id=${nota.id})}" method="post"
                                       class="form-horizontal">
                                     <input type="hidden" th:field="*{id}"/>
+                                    <input type="hidden" th:field="*{elev}"/>
 
                                     <div class="content-subheading first">
                                         <i class="icon-book-open"></i>
@@ -71,42 +72,42 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Nume</label>
+                                        <label  class="col-sm-3 col-form-label">Nume elev</label>
                                         <div class="col-sm-8">
-                                            <label th:if="${#fields.hasErrors('nume')}" th:errors="*{nume}"
+                                            <label th:if="${#fields.hasErrors('elev')}" th:errors="*{elev.nume}"
                                                    class="validation-message"></label>
-                                            <input type="text" class="form-control" th:field="*{nume}" required/>
+                                            <input type="text" class="form-control" th:field="*{elev.nume}" required readonly/>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Prenume</label>
+                                        <label  class="col-sm-3 col-form-label">Prenume elev</label>
                                         <div class="col-sm-8">
-                                            <label th:if="${#fields.hasErrors('prenume')}" th:errors="*{prenume}"
+                                            <label th:if="${#fields.hasErrors('elev')}" th:errors="*{elev.prenume}"
                                                    class="validation-message"></label>
-                                            <input type="text" class="form-control" th:field="*{prenume}" required/>
+                                            <input type="text" class="form-control" th:field="*{elev.prenume}" required readonly/>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Data Nasterii</label>
+                                        <label  class="col-sm-3 col-form-label">Valoare nota</label>
                                         <div class="col-sm-8">
-                                            <label th:if="${#fields.hasErrors('dataNasterii')}" th:errors="*{dataNasterii}"
+                                            <label th:if="${#fields.hasErrors('valoare')}" th:errors="*{valoare}"
                                                    class="validation-message"></label>
-                                            <input id="date" type="text" class="form-control" th:field="*{dataNasterii}" />
+                                            <input type="text" class="form-control" th:field="*{valoare}" required/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 col-form-label">Data</label>
+                                        <div class="col-sm-8">
+                                            <label th:if="${#fields.hasErrors('data')}" th:errors="*{data}"
+                                                   class="validation-message"></label>
+                                            <input id="date" type="text" class="form-control" th:field="*{data}" />
                                             <!--                                            id="date"-->
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Genul</label>
-                                        <div class="col-sm-8">
-                                            <label th:if="${#fields.hasErrors('dataNasterii')}" th:errors="*{gen}"
-                                                   class="validation-message"></label>
-                                            <input id="gen" type="text" class="form-control" th:field="*{gen}" />
-                                            <!--                                            id="date"-->
-                                        </div>
-                                    </div>
 
                                     <div class="content-subheading">
                                         <i class="icon-building-filled"></i>
@@ -115,15 +116,14 @@
                                         </strong>
                                     </div>
                                     <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Institutie de invatamant</label>
+                                        <label  class="col-sm-3 col-form-label">Curs</label>
                                         <div class="col-sm-8">
 
                                             <select id="dropDownProfil" class="form-control"
-                                                    name="dropDownProfil"
-                                                    th:field="*{clasa.institutie}"
+                                                    name="dropDownProfil" th:field="*{curs}"
                                                     required>
 
-                                                <option th:each="elem : ${institutieList}"
+                                                <option th:each="elem : ${cursList}"
                                                         th:value="${elem.id}"
                                                         th:text="${elem.nume}"></option>
                                             </select>
@@ -131,19 +131,19 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label  class="col-sm-3 col-form-label">Clasa</label>
-                                        <div class="col-sm-8">
+                                    <!--                                    <div class="form-group row">-->
+                                    <!--                                        <label  class="col-sm-3 col-form-label">Curs</label>-->
+                                    <!--                                        <div class="col-sm-8">-->
 
-                                            <select id="subcatList" class="form-control"
-                                                    name="subcatList"
-                                                    th:field="*{clasa}"
-                                                    required>
+                                    <!--                                            <select id="subcatList" class="form-control"-->
+                                    <!--                                                    name="subcatList"-->
+                                    <!--                                                    th:field="*{curs}"-->
+                                    <!--                                                    required>-->
 
-                                            </select>
+                                    <!--                                            </select>-->
 
-                                        </div>
-                                    </div>
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
 
 
                                     <!-- Button  -->
@@ -184,102 +184,8 @@
 <!--<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>-->
 <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />-->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script th:inline="javascript">
-    //incarcarea initiala a celor 2 dropdown-uri
-    $(document).ready(function () {
-        var categoryId = [[${elev.clasa.institutie.id}]];
-        $.ajax({
-            type: 'GET',
-            url: "/elev/new/loadClase/" + categoryId,
-            success: function(data){
-                var slctSubcat=$('#subcatList'), option="";
-                slctSubcat.empty();
-
-                for(var i=0; i<data.length; i++){
-                    option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";
-                }
-                slctSubcat.append(option);
-            },
-            error:function(){
-                alert("error");
-            }
-        });
-        $("#dropDownProfil").val([[${elev.clasa.institutie.id}]]);
-        $("#subcatList").val([[${elev.clasa.id}]]);
-
-        $(document).on("change", "#dropDownProfil", function () {
-            var categoryId = $(this).val();
-            $.ajax({
-                type: 'GET',
-                url: "/elev/new/loadClase/" + categoryId,
-                success: function(data){
-                    var slctSubcat=$('#subcatList'), option="";
-                    slctSubcat.empty();
-
-                    for(var i=0; i<data.length; i++){
-                        option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";
-                    }
-                    slctSubcat.append(option);
-                },
-                error:function(){
-                    alert("error");
-                }
-            });
-        });
-
-    });
-
-</script>
-<!--<script th:inline="javascript" type="text/javascript">-->
-<!--    //incarcarea initiala a celor 2 dropdown-uri-->
-
-<!--    $(document).ready(function () {-->
-<!--        var categoryId = [[${elev.clasa.institutie.id}]];-->
-<!--        $.ajax({-->
-<!--            type: 'GET',-->
-<!--            url: "/elev/new/loadClase/" + categoryId,-->
-<!--            success: function(data){-->
-<!--                var slctSubcat=$('#subcatList'), option="";-->
-<!--                slctSubcat.empty();-->
-
-<!--                for(var i=0; i<data.length; i++){-->
-<!--                    option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";-->
-<!--                }-->
-<!--                slctSubcat.append(option);-->
-<!--            },-->
-<!--            error:function(){-->
-<!--                alert("error");-->
-<!--            }-->
-<!--        });-->
-<!--        $("#dropDownProfil").val([[${elev.clasa.institutie.id}]]);-->
-<!--        //$("#subcatList").val([[${elev.clasa.id}]]);-->
-<!--        $("#subcatList").val($("#subcatList").data([[${elev.clasa.id}]]));-->
-
-<!--        $(document).on("change", "#dropDownProfil", function () {-->
-<!--            var categoryId = $(this).val();-->
-<!--            $.ajax({-->
-<!--                type: 'GET',-->
-<!--                url: "/elev/new/loadClase/" + categoryId,-->
-<!--                success: function(data){-->
-<!--                    var slctSubcat=$('#subcatList'), option="";-->
-<!--                    slctSubcat.empty();-->
-
-<!--                    for(var i=0; i<data.length; i++){-->
-<!--                        option = option + "<option value='"+data[i].value + "'>"+data[i].text + "</option>";-->
-<!--                    }-->
-<!--                    slctSubcat.append(option);-->
-<!--                },-->
-<!--                error:function(){-->
-<!--                    alert("error");-->
-<!--                }-->
-<!--            });-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!--<link rel="stylesheet" href="/resources/demos/style.css">-->
+<link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
