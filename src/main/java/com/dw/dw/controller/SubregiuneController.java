@@ -5,6 +5,8 @@ import com.dw.dw.service.SubregiuneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
@@ -29,5 +31,12 @@ public class SubregiuneController {
         model.addAttribute("subregiuneList", subregiuni);
 
         return "/subregiune/index";
+    }
+
+    @GetMapping("/subregiune/show/{id}")
+    public String showTipZona(@PathVariable String id, Model model){
+        model.addAttribute("subregiune", subregiuneService.findSubregiuneById(Integer.valueOf(id)));
+
+        return "/subregiune/show";
     }
 }
