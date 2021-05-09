@@ -1,6 +1,8 @@
 package com.dw.dw.controller;
 
-import com.dw.dw.model.*;
+import com.dw.dw.model.centralizat.Adresa;
+import com.dw.dw.model.centralizat.InstitutieInvatamant;
+import com.dw.dw.model.centralizat.Localitate;
 import com.dw.dw.service.LocalitateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

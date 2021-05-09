@@ -1,7 +1,7 @@
 package com.dw.dw.service.impl;
 
-import com.dw.dw.model.Localitate;
-import com.dw.dw.repository.LocalitateRepository;
+import com.dw.dw.model.centralizat.Localitate;
+import com.dw.dw.repository.centralizat.LocalitateRepository;
 import com.dw.dw.service.LocalitateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

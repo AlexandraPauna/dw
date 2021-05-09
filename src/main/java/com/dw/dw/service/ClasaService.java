@@ -1,7 +1,7 @@
 package com.dw.dw.service;
 
-import com.dw.dw.model.Clasa;
-import com.dw.dw.model.InstitutieInvatamant;
+import com.dw.dw.model.centralizat.Clasa;
+import com.dw.dw.model.centralizat.InstitutieInvatamant;
 import java.util.List;
 
 public interface ClasaService {

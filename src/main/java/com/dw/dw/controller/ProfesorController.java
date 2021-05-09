@@ -1,13 +1,11 @@
 package com.dw.dw.controller;
 
-import com.dw.dw.model.ClasaCursProfesor;
-import com.dw.dw.model.Curs;
-import com.dw.dw.model.Profesor;
-import com.dw.dw.model.SpecializareDidactica;
+import com.dw.dw.model.centralizat.ClasaCursProfesor;
+import com.dw.dw.model.centralizat.Profesor;
+import com.dw.dw.model.centralizat.SpecializareDidactica;
 import com.dw.dw.service.ProfesorService;
 import com.dw.dw.service.SpecializareDidacticaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

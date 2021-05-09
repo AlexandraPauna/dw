@@ -1,10 +1,6 @@
 package com.dw.dw.controller;
 
-import com.dw.dw.model.Curs;
-import com.dw.dw.model.Elev;
-import com.dw.dw.model.Nota;
-import com.dw.dw.model.Procedure;
-import com.dw.dw.service.ElevService;
+import com.dw.dw.model.centralizat.Procedure;
 import com.dw.dw.service.ProcedureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;

@@ -1,6 +1,8 @@
 package com.dw.dw.controller;
 
-import com.dw.dw.model.*;
+import com.dw.dw.model.centralizat.Clasa;
+import com.dw.dw.model.centralizat.Elev;
+import com.dw.dw.model.centralizat.InstitutieInvatamant;
 import com.dw.dw.service.*;
 import com.dw.dw.utils.SelectListItem;
 import org.springframework.beans.factory.annotation.Autowired;

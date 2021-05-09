@@ -1,9 +1,8 @@
 package com.dw.dw.controller;
 
-import com.dw.dw.model.*;
+import com.dw.dw.model.centralizat.ClasaCursProfesor;
+import com.dw.dw.model.centralizat.Curs;
 import com.dw.dw.service.CursService;
-import com.dw.dw.service.ProfesorService;
-import com.dw.dw.service.SpecializareDidacticaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

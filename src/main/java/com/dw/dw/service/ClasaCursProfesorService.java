@@ -1,6 +1,6 @@
 package com.dw.dw.service;
 
-import com.dw.dw.model.ClasaCursProfesor;
+import com.dw.dw.model.centralizat.ClasaCursProfesor;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.dw.dw.service.impl;
 
-import com.dw.dw.model.TipZona;
-import com.dw.dw.repository.TipZonaRepository;
+import com.dw.dw.model.centralizat.TipZona;
+import com.dw.dw.repository.centralizat.TipZonaRepository;
 import com.dw.dw.service.TipZonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

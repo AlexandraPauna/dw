@@ -1,6 +1,6 @@
 package com.dw.dw.service;
 
-import com.dw.dw.model.Localitate;
+import com.dw.dw.model.centralizat.Localitate;
 
 import java.util.List;
 

@@ -1,8 +1,6 @@
 package com.dw.dw.service;
 
-import com.dw.dw.model.Clasa;
-import com.dw.dw.model.InstitutieInvatamant;
-import com.dw.dw.model.Nota;
+import com.dw.dw.model.centralizat.Nota;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package com.dw.dw.service.impl;
 
-import com.dw.dw.model.Profil;
-import com.dw.dw.model.Specializare;
-import com.dw.dw.repository.SpecializareRepository;
+import com.dw.dw.model.centralizat.Profil;
+import com.dw.dw.model.centralizat.Specializare;
+import com.dw.dw.repository.centralizat.SpecializareRepository;
 import com.dw.dw.service.SpecializareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

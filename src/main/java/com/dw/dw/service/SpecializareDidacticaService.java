@@ -1,7 +1,6 @@
 package com.dw.dw.service;
 
-import com.dw.dw.model.SpecializareDidactica;
-import org.springframework.data.domain.Page;
+import com.dw.dw.model.centralizat.SpecializareDidactica;
 
 import java.util.List;
 

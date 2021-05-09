@@ -1,11 +1,10 @@
 package com.dw.dw.service.impl;
 
-import com.dw.dw.model.Curs;
-import com.dw.dw.repository.CursRepository;
+import com.dw.dw.model.centralizat.Curs;
+import com.dw.dw.repository.centralizat.CursRepository;
 import com.dw.dw.service.CursService;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

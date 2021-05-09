@@ -1,8 +1,6 @@
 package com.dw.dw.controller;
 
-import com.dw.dw.model.Elev;
-import com.dw.dw.model.Regiune;
-import com.dw.dw.model.TipZona;
+import com.dw.dw.model.centralizat.TipZona;
 import com.dw.dw.service.TipZonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

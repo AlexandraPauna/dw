@@ -1,12 +1,11 @@
 package com.dw.dw.service.impl;
 
-import com.dw.dw.model.Judet;
-import com.dw.dw.repository.JudetRepository;
+import com.dw.dw.model.centralizat.Judet;
+import com.dw.dw.repository.centralizat.JudetRepository;
 import com.dw.dw.service.JudetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service

@@ -1,7 +1,6 @@
 package com.dw.dw.service;
 
-import com.dw.dw.model.TipZona;
-import org.springframework.data.domain.Page;
+import com.dw.dw.model.centralizat.TipZona;
 
 import java.util.List;
 

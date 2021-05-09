@@ -1,7 +1,7 @@
 package com.dw.dw.service.impl;
 
-import com.dw.dw.model.ClasaCursProfesor;
-import com.dw.dw.repository.ClasaCursProfesorRepository;
+import com.dw.dw.model.centralizat.ClasaCursProfesor;
+import com.dw.dw.repository.centralizat.ClasaCursProfesorRepository;
 import com.dw.dw.service.ClasaCursProfesorService;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

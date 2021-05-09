@@ -1,6 +1,6 @@
 package com.dw.dw.service;
 
-import com.dw.dw.model.Profil;
+import com.dw.dw.model.centralizat.Profil;
 
 import java.util.List;
 

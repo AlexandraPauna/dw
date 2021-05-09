@@ -1,6 +1,6 @@
 package com.dw.dw.controller;
 
-import com.dw.dw.model.Subregiune;
+import com.dw.dw.model.centralizat.Subregiune;
 import com.dw.dw.service.SubregiuneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,6 @@
 package com.dw.dw.service;
 
-import com.dw.dw.model.Regiune;
+import com.dw.dw.model.centralizat.Regiune;
 
 import java.util.List;
 

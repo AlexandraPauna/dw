@@ -1,8 +1,7 @@
 package com.dw.dw.service.impl;
 
-import com.dw.dw.model.TipInstitutie;
-import com.dw.dw.repository.InstitutieInvatamantRepository;
-import com.dw.dw.repository.TipInstitutieRepository;
+import com.dw.dw.model.centralizat.TipInstitutie;
+import com.dw.dw.repository.centralizat.TipInstitutieRepository;
 import com.dw.dw.service.TipInstitutieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

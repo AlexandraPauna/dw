@@ -1,6 +1,6 @@
 package com.dw.dw.service;
 
-import com.dw.dw.model.Elev;
+import com.dw.dw.model.centralizat.Elev;
 
 import java.util.List;
 

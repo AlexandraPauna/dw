@@ -1,9 +1,8 @@
 package com.dw.dw.service.impl;
 
-import com.dw.dw.model.Clasa;
-import com.dw.dw.model.InstitutieInvatamant;
-import com.dw.dw.repository.ClasaRepository;
-import com.dw.dw.repository.InstitutieInvatamantRepository;
+import com.dw.dw.model.centralizat.Clasa;
+import com.dw.dw.model.centralizat.InstitutieInvatamant;
+import com.dw.dw.repository.centralizat.ClasaRepository;
 import com.dw.dw.service.ClasaService;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

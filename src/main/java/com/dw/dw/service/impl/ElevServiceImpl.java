@@ -1,7 +1,7 @@
 package com.dw.dw.service.impl;
 
-import com.dw.dw.model.Elev;
-import com.dw.dw.repository.ElevRepository;
+import com.dw.dw.model.centralizat.Elev;
+import com.dw.dw.repository.centralizat.ElevRepository;
 import com.dw.dw.service.ElevService;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

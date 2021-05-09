@@ -1,9 +1,7 @@
 package com.dw.dw.controller;
 
-import com.dw.dw.model.Regiune;
-import com.dw.dw.model.Subregiune;
+import com.dw.dw.model.centralizat.Regiune;
 import com.dw.dw.service.RegiuneService;
-import com.dw.dw.service.TipZonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

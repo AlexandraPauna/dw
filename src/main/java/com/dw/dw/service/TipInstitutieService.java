@@ -1,7 +1,6 @@
 package com.dw.dw.service;
 
-import com.dw.dw.model.InstitutieInvatamant;
-import com.dw.dw.model.TipInstitutie;
+import com.dw.dw.model.centralizat.TipInstitutie;
 
 import java.util.List;
 

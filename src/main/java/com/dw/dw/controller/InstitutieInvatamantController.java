@@ -1,9 +1,9 @@
 package com.dw.dw.controller;
 
-import com.dw.dw.model.Clasa;
-import com.dw.dw.model.InstitutieInvatamant;
-import com.dw.dw.model.Localitate;
-import com.dw.dw.model.TipInstitutie;
+import com.dw.dw.model.centralizat.Clasa;
+import com.dw.dw.model.centralizat.InstitutieInvatamant;
+import com.dw.dw.model.centralizat.Localitate;
+import com.dw.dw.model.centralizat.TipInstitutie;
 import com.dw.dw.service.InstitutieInvatamantService;
 import com.dw.dw.service.LocalitateService;
 import com.dw.dw.service.TipInstitutieService;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 public class InstitutieInvatamantController {

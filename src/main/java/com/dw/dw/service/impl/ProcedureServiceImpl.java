@@ -1,7 +1,6 @@
 package com.dw.dw.service.impl;
 
-import com.dw.dw.repository.ProcedureRepository;
-import com.dw.dw.repository.ProfesorRepository;
+import com.dw.dw.repository.centralizat.ProcedureRepository;
 import com.dw.dw.service.ProcedureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
