@@ -73,7 +73,6 @@ public class InstitutieInvatamantController {
         if(institutie.getAdresa().getLocalitate().getTipZona() != null) {
             if(institutie.getAdresa().getLocalitate().getTipZona().getNume().toUpperCase().equals("URBAN")) {
                 //se converteste obiectul
-                //copyProperties();
                 InstitutieInvatamantUrban institutie_urban = ObjectConverters.centralizatToUrban.apply(institutie);
 
                 //se adauga in fragmentul urban

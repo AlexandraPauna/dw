@@ -32,8 +32,7 @@ public class InstitutieInvatamantUrban {
     @JoinColumn(name = "adresa_id")
     private AdresaUrban adresa;
 
-    //TO DO DE DECOMENTAT DUPA CE SE ADAUGA SI RESTUL TABELELOR REPLICATE!!!
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "institutie")
-//    private Set<Clasa> clase = new HashSet<Clasa>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "institutie")
+    private Set<ClasaUrban> clase = new HashSet<ClasaUrban>();
 
 }
