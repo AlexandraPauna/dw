@@ -2,6 +2,7 @@ package com.dw.dw.controller;
 
 import com.dw.dw.model.centralizat.*;
 import com.dw.dw.model.urban.ClasaUrban;
+import com.dw.dw.model.urban.InstitutieInvatamantUrban;
 import com.dw.dw.model.urban.NotaUrban;
 import com.dw.dw.service.*;
 import com.dw.dw.utils.ObjectConverters;
@@ -163,7 +164,20 @@ public class NotaController {
         currentElem.setData(nota.getData());
         currentElem.setValoare(nota.getValoare());
 
+        //bd centralizata
         notaService.updateNota(currentElem);
+
+        //pe fragmentat
+        //se cauta daca e in urban
+        if(notaService.findNotaByIdUrban(currentElem.getId()) != null) {
+            //se converteste obiectul
+            NotaUrban urban = ObjectConverters.notaCentralizatToUrban.apply(currentElem);
+
+            //se updateaza in fragmentul urban
+            notaService.updateNotaUrban(urban);
+        }
+        //TO DO else
+
         if (result.hasErrors()){
             return "/nota/update";
         }
@@ -176,7 +190,18 @@ public class NotaController {
     public String deleteById(@PathVariable String id){
         Nota currentElem = notaService.findNotaById(Integer.valueOf(id));
         int idElev = currentElem.getElev().getId();
+
+        //bd centralizata
         notaService.deleteById(Integer.valueOf(id));
+
+        //pe fragmentat
+        if(notaService.findNotaByIdUrban(Integer.valueOf(id)) != null) {
+            //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
+            notaService.deleteByIdUrban(Integer.valueOf(id));
+
+            //TO DO
+        }
+
         return "redirect:/elev/show/" + idElev;
     }
 }
