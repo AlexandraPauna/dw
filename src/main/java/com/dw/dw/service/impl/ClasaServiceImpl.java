@@ -67,6 +67,7 @@ public class ClasaServiceImpl implements ClasaService {
         return clasaRepository.save(clasa);
     }
 
+    //URBAN
     @Override
     public List<Clasa> getAllClasaForInstitutieInvatamant(InstitutieInvatamant institutieInvatamant) {
         return clasaRepository.findByInstitutie(institutieInvatamant);
@@ -75,5 +76,26 @@ public class ClasaServiceImpl implements ClasaService {
     @Override
     public ClasaUrban saveClasaUrban(ClasaUrban clasa) {
         return clasaUrbanRepository.saveAndFlush(clasa);
+    }
+
+    @Override
+    public void deleteByIdUrban(int id) {
+        clasaUrbanRepository.deleteById(id);
+    }
+
+    @Override
+    public ClasaUrban findClasaUrbanById(Integer id) {
+        Optional<ClasaUrban> elemOptional = clasaUrbanRepository.findById(id);
+
+        if (!elemOptional.isPresent()) {
+            throw new RuntimeException("ClasaUrban negasita!");
+        }
+
+        return elemOptional.get();
+    }
+
+    @Override
+    public ClasaUrban updateClasaUrban(ClasaUrban clasa) {
+        return clasaUrbanRepository.save(clasa);
     }
 }

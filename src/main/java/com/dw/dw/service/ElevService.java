@@ -14,4 +14,7 @@ public interface ElevService {
     Elev updateElev(Elev elev);
 
     ElevUrban saveElevUrban(ElevUrban elev);
+    void deleteByIdUrban(int id);
+    ElevUrban findElevUrbanById(Integer id);
+    ElevUrban updateElevUrban(ElevUrban elev);
 }

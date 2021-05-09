@@ -66,8 +66,31 @@ public class ElevServiceImpl implements ElevService {
         return elevRepository.save(elev);
     }
 
+
+    //URBAN
     @Override
     public ElevUrban saveElevUrban(ElevUrban elev) {
         return elevUrbanRepository.saveAndFlush(elev);
+    }
+
+    @Override
+    public void deleteByIdUrban(int id) {
+        elevUrbanRepository.deleteById(id);
+    }
+
+    @Override
+    public ElevUrban findElevUrbanById(Integer id) {
+        Optional<ElevUrban> elemOptional = elevUrbanRepository.findById(id);
+
+        if (!elemOptional.isPresent()) {
+            throw new RuntimeException("ElevUrban negasit!");
+        }
+
+        return elemOptional.get();
+    }
+
+    @Override
+    public ElevUrban updateElevUrban(ElevUrban elev) {
+        return elevUrbanRepository.save(elev);
     }
 }

@@ -16,4 +16,7 @@ public interface ClasaService {
     List<Clasa> getAllClasaForInstitutieInvatamant(InstitutieInvatamant institutieInvatamant);
 
     ClasaUrban saveClasaUrban(ClasaUrban clasa);
+    void deleteByIdUrban(int id);
+    ClasaUrban updateClasaUrban(ClasaUrban clasa);
+    ClasaUrban findClasaUrbanById(Integer id);
 }
