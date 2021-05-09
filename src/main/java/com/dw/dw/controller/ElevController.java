@@ -153,6 +153,9 @@ public class ElevController {
             //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
             elevService.deleteByIdUrban(Integer.valueOf(id));
 
+        }
+        if(elevService.findElevRuralById(Integer.valueOf(id)) != null) {
+
             //se sterge din fragmentul Rural -> are acelasi id ca si cel din centralizat
             elevService.deleteByIdRural(Integer.valueOf(id));
         }

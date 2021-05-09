@@ -4,6 +4,7 @@ import com.dw.dw.model.centralizat.Clasa;
 import com.dw.dw.model.centralizat.InstitutieInvatamant;
 import com.dw.dw.model.centralizat.Localitate;
 import com.dw.dw.model.centralizat.TipInstitutie;
+import com.dw.dw.model.rural.InstitutieInvatamantRural;
 import com.dw.dw.model.urban.AdresaUrban;
 import com.dw.dw.model.urban.ClasaUrban;
 import com.dw.dw.model.urban.InstitutieInvatamantUrban;
@@ -11,6 +12,7 @@ import com.dw.dw.service.InstitutieInvatamantService;
 import com.dw.dw.service.LocalitateService;
 import com.dw.dw.service.TipInstitutieService;
 import com.dw.dw.utils.ObjectConverters;
+import com.dw.dw.utils.ObjectConvertersRural;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -79,7 +81,13 @@ public class InstitutieInvatamantController {
                 //se adauga in fragmentul urban
                 InstitutieInvatamantUrban savedInstitutie_Urban = institutieInvatamantService.saveInstitutieInvatamant_Urban(institutie_urban);
             }
-            //TO DO - pt rural
+            if(institutie.getAdresa().getLocalitate().getTipZona().getNume().toUpperCase().equals("RURAL")) {
+                //se converteste obiectul
+                InstitutieInvatamantRural institutie_Rural = ObjectConvertersRural.centralizatToRural.apply(institutie);
+
+                //se adauga in fragmentul Rural
+                InstitutieInvatamantRural savedInstitutie_Urban = institutieInvatamantService.saveInstitutieInvatamant_Rural(institutie_Rural);
+            }
         }
 
         return "redirect:/institutie/index";
@@ -155,7 +163,14 @@ public class InstitutieInvatamantController {
             //se updateaza in fragmentul urban
             institutieInvatamantService.updateInstitutieInvatamantUrban(urban);
         }
-        //TO DO else
+        else
+        if(institutieInvatamantService.findInstitutieInvatamantByIdRural(currentElem.getId()) != null) {
+            //se converteste obiectul
+            InstitutieInvatamantRural rural = ObjectConvertersRural.centralizatToRural.apply(currentElem);
+
+            //se updateaza in fragmentul urban
+            institutieInvatamantService.updateInstitutieInvatamantRural(rural);
+        }
 
         if (result.hasErrors()){
             return "/institutie/update";
@@ -176,7 +191,13 @@ public class InstitutieInvatamantController {
             //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
             institutieInvatamantService.deleteByIdUrban(Integer.valueOf(id));
 
-            //TO DO
+
+        }
+        else
+        if(institutieInvatamantService.findInstitutieInvatamantByIdRural(Integer.valueOf(id)) != null) {
+            //se sterge din fragmentul rural -> are acelasi id ca si cel din centralizat
+
+            institutieInvatamantService.deleteByIdRural(Integer.valueOf(id));
         }
         return "redirect:/institutie/index";
     }

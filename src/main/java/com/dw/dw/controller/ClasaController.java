@@ -241,7 +241,7 @@ public class ClasaController {
             clasaService.deleteByIdUrban(Integer.valueOf(id));
 
         }
-
+        else
         if(clasaService.findClasaRuralById(Integer.valueOf(id)) != null) {
             //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
             clasaService.deleteByIdRural(Integer.valueOf(id));
