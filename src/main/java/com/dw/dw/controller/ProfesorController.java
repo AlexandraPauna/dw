@@ -130,7 +130,18 @@ public class ProfesorController {
 
     @RequestMapping("profesor/{id}/delete")
     public String deleteById(@PathVariable String id){
+
+        //bd centralizata
         profesorService.deleteById(Integer.valueOf(id));
+
+        //pe fragmentat
+        if(profesorService.findProfesorByIdUrban(Integer.valueOf(id)) != null) {
+            //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
+            profesorService.deleteByIdUrban(Integer.valueOf(id));
+
+            //TO DO
+        }
+
         return "redirect:/profesor/index";
     }
 
@@ -195,7 +206,20 @@ public class ProfesorController {
         currentElem.setGradDidactic(profesor.getGradDidactic());
         currentElem.setSpecializari(profesor.getSpecializari());
 
+        //bd centralizata
         profesorService.updateProfesor(currentElem);
+
+        //pe fragmentat
+        //se cauta daca e in urban
+        if(profesorService.findProfesorByIdUrban(currentElem.getId()) != null) {
+            //se converteste obiectul
+            ProfesorUrban urban = ObjectConverters.profesorCentralizatToUrban.apply(currentElem);
+
+            //se updateaza in fragmentul urban
+            profesorService.updateProfesorUrban(urban);
+        }
+        //TO DO else
+
         if (result.hasErrors()){
             return "/profesor/update";
         }
