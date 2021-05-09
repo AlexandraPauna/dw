@@ -2,7 +2,9 @@ package com.dw.dw.service.impl;
 
 import com.dw.dw.model.centralizat.Clasa;
 import com.dw.dw.model.centralizat.InstitutieInvatamant;
+import com.dw.dw.model.urban.ClasaUrban;
 import com.dw.dw.repository.centralizat.ClasaRepository;
+import com.dw.dw.repository.urban.ClasaUrbanRepository;
 import com.dw.dw.service.ClasaService;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +17,12 @@ import java.util.Optional;
 public class ClasaServiceImpl implements ClasaService {
     private final ClasaRepository clasaRepository;
 
+    private final ClasaUrbanRepository clasaUrbanRepository;
+
     @Autowired
-    public ClasaServiceImpl(ClasaRepository clasaRepository) {
+    public ClasaServiceImpl(ClasaRepository clasaRepository, ClasaUrbanRepository clasaUrbanRepository) {
         this.clasaRepository = clasaRepository;
+        this.clasaUrbanRepository = clasaUrbanRepository;
     }
 
     @Override
@@ -65,5 +70,10 @@ public class ClasaServiceImpl implements ClasaService {
     @Override
     public List<Clasa> getAllClasaForInstitutieInvatamant(InstitutieInvatamant institutieInvatamant) {
         return clasaRepository.findByInstitutie(institutieInvatamant);
+    }
+
+    @Override
+    public ClasaUrban saveClasaUrban(ClasaUrban clasa) {
+        return clasaUrbanRepository.saveAndFlush(clasa);
     }
 }

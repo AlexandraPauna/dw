@@ -78,7 +78,7 @@ public class InstitutieInvatamantController {
                 //se adauga in fragmentul urban
                 InstitutieInvatamantUrban savedInstitutie_Urban = institutieInvatamantService.saveInstitutieInvatamant_Urban(institutie_urban);
             }
-
+            //TO DO - pt rural
         }
 
         return "redirect:/institutie/index";

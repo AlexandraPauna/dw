@@ -29,10 +29,6 @@ public class ProfesorUrban {
     @NotEmpty(message = "*Introduceti prenumele profesorului!")
     private String prenume;
 
-    @Column(name = "data_nasterii")
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date dataNasterii;
-
     @Column(name = "grad_didactic")
     private Integer gradDidactic;
 

@@ -1,7 +1,10 @@
 package com.dw.dw.controller;
 
 import com.dw.dw.model.centralizat.*;
+import com.dw.dw.model.urban.ClasaUrban;
+import com.dw.dw.model.urban.InstitutieInvatamantUrban;
 import com.dw.dw.service.*;
+import com.dw.dw.utils.ObjectConverters;
 import com.dw.dw.utils.SelectListItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -82,7 +85,20 @@ public class ClasaController {
             return "/clasa/new";
         }
 
+        //salvarea pe centralizat
         Clasa savedClasa = clasaService.saveClasa(clasa);
+
+        //salvarea pe fragmentul corespunzator
+        if(clasa.getInstitutie().getAdresa().getLocalitate().getTipZona() != null) {
+            if(clasa.getInstitutie().getAdresa().getLocalitate().getTipZona().getNume().toUpperCase().equals("URBAN")) {
+                //se converteste obiectul
+                ClasaUrban clasa_urban = ObjectConverters.clasaCentralizatToUrban.apply(clasa);
+
+                //se adauga in fragmentul urban
+                ClasaUrban savedClasa_Urban = clasaService.saveClasaUrban(clasa_urban);
+            }
+
+        }
 
         if(instId != null) {
             return "redirect:/institutie/show/" + instId.toString();

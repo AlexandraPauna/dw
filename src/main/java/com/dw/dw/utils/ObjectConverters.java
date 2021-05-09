@@ -2,6 +2,7 @@ package com.dw.dw.utils;
 
 import com.dw.dw.model.centralizat.*;
 import com.dw.dw.model.urban.AdresaUrban;
+import com.dw.dw.model.urban.ClasaUrban;
 import com.dw.dw.model.urban.InstitutieInvatamantUrban;
 import com.dw.dw.model.urban.LocalitateUrban;
 import com.dw.dw.service.TipInstitutieService;
@@ -128,6 +129,53 @@ public class ObjectConverters {
             com.dw.dw.model.urban.TipZona urban = new com.dw.dw.model.urban.TipZona();
             urban.setId(t.getId());
             urban.setNume(t.getNume());
+
+            return urban;
+        }
+    };
+
+    public static Function<Clasa, ClasaUrban> clasaCentralizatToUrban
+            = new Function<Clasa, ClasaUrban>() {
+
+        public ClasaUrban apply(Clasa t) {
+            ClasaUrban urban = new ClasaUrban();
+            urban.setId(t.getId());
+            urban.setNume(t.getNume());
+            urban.setAn(t.getAn());
+            urban.setNivel(t.getNivel());
+
+            InstitutieInvatamantUrban institutie_urban = ObjectConverters.centralizatToUrban.apply(t.getInstitutie());
+            urban.setInstitutie(institutie_urban);
+
+            com.dw.dw.model.urban.Specializare specializare_urban = ObjectConverters.specializareCentralizatToUrban.apply(t.getSpecializare());
+            urban.setSpecializare(specializare_urban);
+
+            return urban;
+        }
+    };
+
+    public static Function<Specializare, com.dw.dw.model.urban.Specializare> specializareCentralizatToUrban
+            = new Function<Specializare, com.dw.dw.model.urban.Specializare>() {
+
+        public com.dw.dw.model.urban.Specializare apply(Specializare t) {
+            com.dw.dw.model.urban.Specializare urban = new com.dw.dw.model.urban.Specializare();
+            urban.setId(t.getId());
+            urban.setDenumire(t.getDenumire());
+
+            com.dw.dw.model.urban.Profil profil_urban = ObjectConverters.profilCentralizatToUrban.apply(t.getProfil());
+            urban.setProfil(profil_urban);
+
+            return urban;
+        }
+    };
+
+    public static Function<Profil, com.dw.dw.model.urban.Profil> profilCentralizatToUrban
+            = new Function<Profil, com.dw.dw.model.urban.Profil>() {
+
+        public com.dw.dw.model.urban.Profil apply(Profil t) {
+            com.dw.dw.model.urban.Profil urban = new com.dw.dw.model.urban.Profil();
+            urban.setId(t.getId());
+            urban.setDenumire(t.getDenumire());
 
             return urban;
         }

@@ -2,6 +2,8 @@ package com.dw.dw.service;
 
 import com.dw.dw.model.centralizat.Clasa;
 import com.dw.dw.model.centralizat.InstitutieInvatamant;
+import com.dw.dw.model.urban.ClasaUrban;
+
 import java.util.List;
 
 public interface ClasaService {
@@ -12,4 +14,6 @@ public interface ClasaService {
     Clasa findClasaById(Integer id);
     Clasa updateClasa(Clasa clasa);
     List<Clasa> getAllClasaForInstitutieInvatamant(InstitutieInvatamant institutieInvatamant);
+
+    ClasaUrban saveClasaUrban(ClasaUrban clasa);
 }
