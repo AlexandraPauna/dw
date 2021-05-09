@@ -3,10 +3,12 @@ package com.dw.dw.controller;
 import com.dw.dw.model.centralizat.Clasa;
 import com.dw.dw.model.centralizat.Elev;
 import com.dw.dw.model.centralizat.InstitutieInvatamant;
+import com.dw.dw.model.rural.ElevRural;
 import com.dw.dw.model.urban.ClasaUrban;
 import com.dw.dw.model.urban.ElevUrban;
 import com.dw.dw.service.*;
 import com.dw.dw.utils.ObjectConverters;
+import com.dw.dw.utils.ObjectConvertersRural;
 import com.dw.dw.utils.SelectListItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -95,6 +97,14 @@ public class ElevController {
                 //se adauga in fragmentul urban
                 ElevUrban savedElev_Urban = elevService.saveElevUrban(elev_urban);
             }
+            else
+            if(elev.getClasa().getInstitutie().getAdresa().getLocalitate().getTipZona().getNume().toUpperCase().equals("RURAL")) {
+                //se converteste obiectul
+                ElevRural elev_rural = ObjectConvertersRural.elevCentralizatToRural.apply(elev);
+
+                //se adauga in fragmentul Rural
+                ElevRural savedElev_Rural = elevService.saveElevRural(elev_rural);
+            }
 
         }
 
@@ -143,7 +153,8 @@ public class ElevController {
             //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
             elevService.deleteByIdUrban(Integer.valueOf(id));
 
-            //TO DO
+            //se sterge din fragmentul Rural -> are acelasi id ca si cel din centralizat
+            elevService.deleteByIdRural(Integer.valueOf(id));
         }
 
         return "redirect:/elev/index";
