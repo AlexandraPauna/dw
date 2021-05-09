@@ -1,11 +1,13 @@
 package com.dw.dw.controller;
 
 import com.dw.dw.model.centralizat.*;
+import com.dw.dw.model.rural.NotaRural;
 import com.dw.dw.model.urban.ClasaUrban;
 import com.dw.dw.model.urban.InstitutieInvatamantUrban;
 import com.dw.dw.model.urban.NotaUrban;
 import com.dw.dw.service.*;
 import com.dw.dw.utils.ObjectConverters;
+import com.dw.dw.utils.ObjectConvertersRural;
 import com.dw.dw.utils.SelectListItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -92,7 +94,14 @@ public class NotaController {
                 //se adauga in fragmentul urban
                 NotaUrban saved_Urban = notaService.saveNotaUrban(urban);
             }
+            else
+            if(nota.getElev().getClasa().getInstitutie().getAdresa().getLocalitate().getTipZona().getNume().toUpperCase().equals("URBAN")) {
+                //se converteste obiectul
+                NotaRural Rural = ObjectConvertersRural.notaCentralizatToRural.apply(nota);
 
+                //se adauga in fragmentul Rural
+                NotaRural saved_Rural = notaService.saveNotaRural(Rural);
+            }
         }
 
         return "redirect:/elev/show/" + nota.getElev().getId();
@@ -176,7 +185,13 @@ public class NotaController {
             //se updateaza in fragmentul urban
             notaService.updateNotaUrban(urban);
         }
-        //TO DO else
+        else if(notaService.findNotaByIdRural(currentElem.getId()) != null) {
+            //se converteste obiectul
+            NotaRural Rural = ObjectConvertersRural.notaCentralizatToRural.apply(currentElem);
+
+            //se updateaza in fragmentul Rural
+            notaService.updateNotaRural(Rural);
+        }
 
         if (result.hasErrors()){
             return "/nota/update";
@@ -199,7 +214,12 @@ public class NotaController {
             //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
             notaService.deleteByIdUrban(Integer.valueOf(id));
 
-            //TO DO
+        }
+        else
+        if(notaService.findNotaByIdRural(Integer.valueOf(id)) != null) {
+            //se sterge din fragmentul Rural -> are acelasi id ca si cel din centralizat
+            notaService.deleteByIdRural(Integer.valueOf(id));
+
         }
 
         return "redirect:/elev/show/" + idElev;
