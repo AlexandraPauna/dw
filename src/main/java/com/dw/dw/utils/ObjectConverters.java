@@ -1,10 +1,14 @@
 package com.dw.dw.utils;
 
 import com.dw.dw.model.centralizat.*;
-import com.dw.dw.model.urban.AdresaUrban;
-import com.dw.dw.model.urban.ClasaUrban;
-import com.dw.dw.model.urban.InstitutieInvatamantUrban;
-import com.dw.dw.model.urban.LocalitateUrban;
+import com.dw.dw.model.centralizat.Judet;
+import com.dw.dw.model.centralizat.Profil;
+import com.dw.dw.model.centralizat.Regiune;
+import com.dw.dw.model.centralizat.Specializare;
+import com.dw.dw.model.centralizat.Subregiune;
+import com.dw.dw.model.centralizat.TipInstitutie;
+import com.dw.dw.model.centralizat.TipZona;
+import com.dw.dw.model.urban.*;
 import com.dw.dw.service.TipInstitutieService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -176,6 +180,24 @@ public class ObjectConverters {
             com.dw.dw.model.urban.Profil urban = new com.dw.dw.model.urban.Profil();
             urban.setId(t.getId());
             urban.setDenumire(t.getDenumire());
+
+            return urban;
+        }
+    };
+
+    public static Function<Elev, ElevUrban> elevCentralizatToUrban
+            = new Function<Elev, ElevUrban>() {
+
+        public ElevUrban apply(Elev t) {
+            ElevUrban urban = new ElevUrban();
+            urban.setId(t.getId());
+            urban.setNume(t.getNume());
+            urban.setPrenume(t.getPrenume());
+            urban.setDataNasterii(t.getDataNasterii());
+            urban.setGen(t.getGen());
+
+            ClasaUrban clasa_urban = ObjectConverters.clasaCentralizatToUrban.apply(t.getClasa());
+            urban.setClasa(clasa_urban);
 
             return urban;
         }

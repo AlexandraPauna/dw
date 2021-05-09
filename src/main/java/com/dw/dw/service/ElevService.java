@@ -1,6 +1,7 @@
 package com.dw.dw.service;
 
 import com.dw.dw.model.centralizat.Elev;
+import com.dw.dw.model.urban.ElevUrban;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface ElevService {
     void deleteById(int id);
     Elev findElevById(Integer id);
     Elev updateElev(Elev elev);
+
+    ElevUrban saveElevUrban(ElevUrban elev);
 }

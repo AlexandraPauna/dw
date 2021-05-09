@@ -3,7 +3,10 @@ package com.dw.dw.controller;
 import com.dw.dw.model.centralizat.Clasa;
 import com.dw.dw.model.centralizat.Elev;
 import com.dw.dw.model.centralizat.InstitutieInvatamant;
+import com.dw.dw.model.urban.ClasaUrban;
+import com.dw.dw.model.urban.ElevUrban;
 import com.dw.dw.service.*;
+import com.dw.dw.utils.ObjectConverters;
 import com.dw.dw.utils.SelectListItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -80,7 +83,20 @@ public class ElevController {
             return "/elev/new";
         }
 
+        //salvarea pe centralizat
         Elev elevSaved = elevService.saveElev(elev);
+
+        //salvarea pe fragmentul corespunzator
+        if(elev.getClasa().getInstitutie().getAdresa().getLocalitate().getTipZona() != null) {
+            if(elev.getClasa().getInstitutie().getAdresa().getLocalitate().getTipZona().getNume().toUpperCase().equals("URBAN")) {
+                //se converteste obiectul
+                ElevUrban elev_urban = ObjectConverters.elevCentralizatToUrban.apply(elev);
+
+                //se adauga in fragmentul urban
+                ElevUrban savedElev_Urban = elevService.saveElevUrban(elev_urban);
+            }
+
+        }
 
         return "redirect:/clasa/show/" + elev.getClasa().getId();
     }
