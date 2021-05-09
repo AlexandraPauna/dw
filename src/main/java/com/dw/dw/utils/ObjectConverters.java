@@ -10,9 +10,12 @@ import com.dw.dw.model.centralizat.Subregiune;
 import com.dw.dw.model.centralizat.TipInstitutie;
 import com.dw.dw.model.centralizat.TipZona;
 import com.dw.dw.model.urban.*;
+import com.dw.dw.model.centralizat.SpecializareDidactica;
 import com.dw.dw.service.TipInstitutieService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Function;
 
 public class ObjectConverters {
@@ -228,6 +231,60 @@ public class ObjectConverters {
 
         public com.dw.dw.model.urban.Curs apply(Curs t) {
             com.dw.dw.model.urban.Curs urban = new com.dw.dw.model.urban.Curs();
+            urban.setId(t.getId());
+            urban.setNume(t.getNume());
+
+            return urban;
+        }
+    };
+
+    public static Function<ClasaCursProfesor, ClasaCursProfesorUrban> clasaCursProfesorCentralizatToUrban
+            = new Function<ClasaCursProfesor, ClasaCursProfesorUrban>() {
+
+        public ClasaCursProfesorUrban apply(ClasaCursProfesor t) {
+            ClasaCursProfesorUrban urban = new ClasaCursProfesorUrban();
+            urban.setId(t.getId());
+
+            ClasaUrban clasa_urban = ObjectConverters.clasaCentralizatToUrban.apply(t.getClasa());
+            urban.setClasa(clasa_urban);
+
+            com.dw.dw.model.urban.Curs curs_urban = ObjectConverters.cursCentralizatToUrban.apply(t.getCurs());
+            urban.setCurs(curs_urban);
+
+            ProfesorUrban profesor_urban = ObjectConverters.profesorCentralizatToUrban.apply(t.getProfesor());
+            urban.setProfesor(profesor_urban);
+
+            return urban;
+        }
+    };
+
+    public static Function<Profesor, ProfesorUrban> profesorCentralizatToUrban
+            = new Function<Profesor, ProfesorUrban>() {
+
+        public ProfesorUrban apply(Profesor t) {
+            ProfesorUrban urban = new ProfesorUrban();
+            urban.setId(t.getId());
+            urban.setPrenume(t.getPrenume());
+            urban.setNume(t.getNume());
+            urban.setGradDidactic(t.getGradDidactic());
+
+            Set<com.dw.dw.model.urban.SpecializareDidactica> specializariD_urban = new HashSet<com.dw.dw.model.urban.SpecializareDidactica>();
+            t.getSpecializari().forEach((sp) ->
+            {
+                com.dw.dw.model.urban.SpecializareDidactica sp_urban = ObjectConverters.specializareDidacticaCentralizatToUrban.apply(sp);
+                specializariD_urban.add(sp_urban);
+            });
+            urban.setSpecializari(specializariD_urban);
+
+            return urban;
+        }
+    };
+
+    public static Function<SpecializareDidactica, com.dw.dw.model.urban.SpecializareDidactica> specializareDidacticaCentralizatToUrban
+            = new Function<SpecializareDidactica, com.dw.dw.model.urban.SpecializareDidactica>() {
+
+        public com.dw.dw.model.urban.SpecializareDidactica apply(SpecializareDidactica t) {
+            com.dw.dw.model.urban.SpecializareDidactica urban = new com.dw.dw.model.urban.SpecializareDidactica();
             urban.setId(t.getId());
             urban.setNume(t.getNume());
 

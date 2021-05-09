@@ -1,7 +1,10 @@
 package com.dw.dw.controller;
 
 import com.dw.dw.model.centralizat.*;
+import com.dw.dw.model.urban.ClasaCursProfesorUrban;
+import com.dw.dw.model.urban.NotaUrban;
 import com.dw.dw.service.*;
+import com.dw.dw.utils.ObjectConverters;
 import com.dw.dw.utils.SelectListItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -87,7 +90,20 @@ public class ClasaCursProfesorController {
             return "/clasa/addCurs";
         }
 
+        //salvarea pe centralizat
         ClasaCursProfesor savedElem = clasaCursProfesorService.saveClasaCursProfesor(clasaCursProfesor);
+
+        //salvarea pe fragmentul corespunzator
+        if(clasaCursProfesor.getClasa().getInstitutie().getAdresa().getLocalitate().getTipZona() != null) {
+            if(clasaCursProfesor.getClasa().getInstitutie().getAdresa().getLocalitate().getTipZona().getNume().toUpperCase().equals("URBAN")) {
+                //se converteste obiectul
+                ClasaCursProfesorUrban urban = ObjectConverters.clasaCursProfesorCentralizatToUrban.apply(clasaCursProfesor);
+
+                //se adauga in fragmentul urban
+                ClasaCursProfesorUrban saved_Urban = clasaCursProfesorService.saveClasaCursProfesorUrban(urban);
+            }
+
+        }
 
         if(clasaId != null) {
             return "redirect:/clasa/show/" + clasaId.toString();

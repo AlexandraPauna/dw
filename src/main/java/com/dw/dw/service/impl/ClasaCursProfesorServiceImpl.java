@@ -1,7 +1,9 @@
 package com.dw.dw.service.impl;
 
 import com.dw.dw.model.centralizat.ClasaCursProfesor;
+import com.dw.dw.model.urban.ClasaCursProfesorUrban;
 import com.dw.dw.repository.centralizat.ClasaCursProfesorRepository;
+import com.dw.dw.repository.urban.ClasaCursProfesorUrbanRepository;
 import com.dw.dw.service.ClasaCursProfesorService;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,12 @@ import java.util.Optional;
 @Service
 public class ClasaCursProfesorServiceImpl implements ClasaCursProfesorService {
     private final ClasaCursProfesorRepository clasaCursProfesorRepository;
+    private final ClasaCursProfesorUrbanRepository clasaCursProfesorUrbanRepository;
 
     @Autowired
-    public ClasaCursProfesorServiceImpl(ClasaCursProfesorRepository clasaCursProfesorRepository) {
+    public ClasaCursProfesorServiceImpl(ClasaCursProfesorRepository clasaCursProfesorRepository, ClasaCursProfesorUrbanRepository clasaCursProfesorUrbanRepository) {
         this.clasaCursProfesorRepository = clasaCursProfesorRepository;
+        this.clasaCursProfesorUrbanRepository = clasaCursProfesorUrbanRepository;
     }
 
     @Override
@@ -59,5 +63,10 @@ public class ClasaCursProfesorServiceImpl implements ClasaCursProfesorService {
     @Override
     public ClasaCursProfesor updateClasaCursProfesor(ClasaCursProfesor clasa) {
         return clasaCursProfesorRepository.save(clasa);
+    }
+
+    @Override
+    public ClasaCursProfesorUrban saveClasaCursProfesorUrban(ClasaCursProfesorUrban elem) {
+        return clasaCursProfesorUrbanRepository.saveAndFlush(elem);
     }
 }
