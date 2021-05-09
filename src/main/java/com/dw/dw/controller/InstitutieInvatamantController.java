@@ -4,9 +4,12 @@ import com.dw.dw.model.centralizat.Clasa;
 import com.dw.dw.model.centralizat.InstitutieInvatamant;
 import com.dw.dw.model.centralizat.Localitate;
 import com.dw.dw.model.centralizat.TipInstitutie;
+import com.dw.dw.model.urban.AdresaUrban;
+import com.dw.dw.model.urban.InstitutieInvatamantUrban;
 import com.dw.dw.service.InstitutieInvatamantService;
 import com.dw.dw.service.LocalitateService;
 import com.dw.dw.service.TipInstitutieService;
+import com.dw.dw.utils.ObjectConverters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
+import java.util.function.Function;
+
+import static org.springframework.beans.BeanUtils.copyProperties;
 
 @Controller
 public class InstitutieInvatamantController {
@@ -60,7 +66,21 @@ public class InstitutieInvatamantController {
             return "/institutie/new";
         }
 
+        //salvarea pe centralizat
         InstitutieInvatamant savedRecipe = institutieInvatamantService.saveInstitutieInvatamant(institutie);
+
+        //salvarea pe fragmentul corespunzator
+        if(institutie.getAdresa().getLocalitate().getTipZona() != null) {
+            if(institutie.getAdresa().getLocalitate().getTipZona().getNume().toUpperCase().equals("URBAN")) {
+                //se converteste obiectul
+                //copyProperties();
+                InstitutieInvatamantUrban institutie_urban = ObjectConverters.centralizatToUrban.apply(institutie);
+
+                //se adauga in fragmentul urban
+                InstitutieInvatamantUrban savedInstitutie_Urban = institutieInvatamantService.saveInstitutieInvatamant_Urban(institutie_urban);
+            }
+
+        }
 
         return "redirect:/institutie/index";
     }

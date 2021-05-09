@@ -16,7 +16,7 @@ import java.util.Set;
 @Table(name = "INSTITUTIE_INVATAMANT_URBAN")
 public class InstitutieInvatamantUrban {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "institutie_id")
     private int id;
 

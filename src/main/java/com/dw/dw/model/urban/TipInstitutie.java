@@ -13,10 +13,10 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "tip_institutie_invatamant_urban")
+@Table(name = "tip_institutie_invatamant")
 public class TipInstitutie {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tip_institutie_id")
     private int id;
 

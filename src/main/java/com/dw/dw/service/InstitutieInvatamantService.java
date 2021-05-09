@@ -1,6 +1,7 @@
 package com.dw.dw.service;
 
 import com.dw.dw.model.centralizat.InstitutieInvatamant;
+import com.dw.dw.model.urban.InstitutieInvatamantUrban;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface InstitutieInvatamantService {
     void deleteById(int id);
     InstitutieInvatamant findInstitutieInvatamantById(Integer id);
     InstitutieInvatamant updateInstitutieInvatamant(InstitutieInvatamant institutieInvatamant);
+
+    InstitutieInvatamantUrban saveInstitutieInvatamant_Urban(InstitutieInvatamantUrban institutieInvatamant);
 }

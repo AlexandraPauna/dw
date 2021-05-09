@@ -15,7 +15,7 @@ import java.util.Set;
 @Entity(name = "JUDET")
 public class Judet {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "judet_id")
     private int id;
 

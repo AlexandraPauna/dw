@@ -1,7 +1,9 @@
 package com.dw.dw.service.impl;
 
 import com.dw.dw.model.centralizat.InstitutieInvatamant;
+import com.dw.dw.model.urban.InstitutieInvatamantUrban;
 import com.dw.dw.repository.centralizat.InstitutieInvatamantRepository;
+import com.dw.dw.repository.urban.InstitutieInvatamantUrbanRepository;
 import com.dw.dw.service.InstitutieInvatamantService;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +17,12 @@ public class InstitutieInvatamantServiceImpl implements InstitutieInvatamantServ
 
     private final InstitutieInvatamantRepository institutieInvatamantRepository;
 
+    private final InstitutieInvatamantUrbanRepository institutieInvatamantRepository_Urban;
+
     @Autowired
-    public InstitutieInvatamantServiceImpl(InstitutieInvatamantRepository institutieInvatamantRepository) {
+    public InstitutieInvatamantServiceImpl(InstitutieInvatamantRepository institutieInvatamantRepository, InstitutieInvatamantUrbanRepository institutieInvatamantRepository_urban) {
         this.institutieInvatamantRepository = institutieInvatamantRepository;
+        this.institutieInvatamantRepository_Urban = institutieInvatamantRepository_urban;
     }
 
     @Override
@@ -60,6 +65,12 @@ public class InstitutieInvatamantServiceImpl implements InstitutieInvatamantServ
     @Override
     public InstitutieInvatamant updateInstitutieInvatamant(InstitutieInvatamant institutieInvatamant) {
         return institutieInvatamantRepository.save(institutieInvatamant);
+    }
+
+    //URBAN
+    @Override
+    public InstitutieInvatamantUrban saveInstitutieInvatamant_Urban(InstitutieInvatamantUrban institutieInvatamant) {
+        return institutieInvatamantRepository_Urban.saveAndFlush(institutieInvatamant);
     }
 
 }

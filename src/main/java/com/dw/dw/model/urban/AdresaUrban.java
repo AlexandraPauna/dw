@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "ADRESA_URBAN")
 public class AdresaUrban {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "adresa_id")
     private int id;
 
