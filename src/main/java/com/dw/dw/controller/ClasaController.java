@@ -1,6 +1,7 @@
 package com.dw.dw.controller;
 
 import com.dw.dw.model.centralizat.*;
+import com.dw.dw.model.urban.ClasaCursProfesorUrban;
 import com.dw.dw.model.urban.ClasaUrban;
 import com.dw.dw.model.urban.InstitutieInvatamantUrban;
 import com.dw.dw.service.*;
@@ -189,7 +190,20 @@ public class ClasaController {
         currentElem.setInstitutie(clasa.getInstitutie());
         currentElem.setSpecializare(clasa.getSpecializare());
 
+        //bd centralizata
         clasaService.updateClasa(currentElem);
+
+        //pe fragmentat
+        //se cauta daca e in urban
+        if(clasaService.findClasaUrbanById(currentElem.getId()) != null) {
+            //se converteste obiectul
+            ClasaUrban urban = ObjectConverters.clasaCentralizatToUrban.apply(currentElem);
+
+            //se updateaza in fragmentul urban
+            clasaService.updateClasaUrban(urban);
+        }
+        //TO DO else
+
         if (result.hasErrors()){
             return "/clasa/update";
         }
@@ -202,7 +216,18 @@ public class ClasaController {
     public String deleteById(@PathVariable String id){
         Clasa currentElem = clasaService.findClasaById(Integer.valueOf(id));
         int idInst = currentElem.getId();
+
+        //bd centralizata
         clasaService.deleteById(Integer.valueOf(id));
+
+        //pe fragmentat
+        if(clasaService.findClasaUrbanById(Integer.valueOf(id)) != null) {
+            //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
+            clasaService.deleteByIdUrban(Integer.valueOf(id));
+
+            //TO DO
+        }
+
         return "redirect:/institutie/show/" + idInst;
     }
 }

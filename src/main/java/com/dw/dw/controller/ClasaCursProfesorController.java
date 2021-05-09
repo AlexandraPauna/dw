@@ -214,7 +214,7 @@ public class ClasaCursProfesorController {
         clasaCursProfesorService.deleteById(Integer.valueOf(id));
 
         //pe fragmentat
-        if(currentElem.getClasa().getInstitutie().getAdresa().getLocalitate().getTipZona() != null) {
+        if(clasaCursProfesorService.findClasaCursProfesorUrbanById(Integer.valueOf(id)) != null) {
             //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
             clasaCursProfesorService.deleteByIdUrban(Integer.valueOf(id));
 
