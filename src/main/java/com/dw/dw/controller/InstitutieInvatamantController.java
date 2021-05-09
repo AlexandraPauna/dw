@@ -5,6 +5,7 @@ import com.dw.dw.model.centralizat.InstitutieInvatamant;
 import com.dw.dw.model.centralizat.Localitate;
 import com.dw.dw.model.centralizat.TipInstitutie;
 import com.dw.dw.model.urban.AdresaUrban;
+import com.dw.dw.model.urban.ClasaUrban;
 import com.dw.dw.model.urban.InstitutieInvatamantUrban;
 import com.dw.dw.service.InstitutieInvatamantService;
 import com.dw.dw.service.LocalitateService;
@@ -142,7 +143,20 @@ public class InstitutieInvatamantController {
         currentElem.setAdresa(institutie.getAdresa());
         currentElem.setClase(institutie.getClase());
 
+        //bd centralizata
         institutieInvatamantService.updateInstitutieInvatamant(currentElem);
+
+        //pe fragmentat
+        //se cauta daca e in urban
+        if(institutieInvatamantService.findInstitutieInvatamantByIdUrban(currentElem.getId()) != null) {
+            //se converteste obiectul
+            InstitutieInvatamantUrban urban = ObjectConverters.centralizatToUrban.apply(currentElem);
+
+            //se updateaza in fragmentul urban
+            institutieInvatamantService.updateInstitutieInvatamantUrban(urban);
+        }
+        //TO DO else
+
         if (result.hasErrors()){
             return "/institutie/update";
         }
@@ -154,7 +168,16 @@ public class InstitutieInvatamantController {
 
     @RequestMapping("institutie/{id}/delete")
     public String deleteById(@PathVariable String id){
+        //bd centralizata
         institutieInvatamantService.deleteById(Integer.valueOf(id));
+
+        //pe fragmentat
+        if(institutieInvatamantService.findInstitutieInvatamantByIdUrban(Integer.valueOf(id)) != null) {
+            //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
+            institutieInvatamantService.deleteByIdUrban(Integer.valueOf(id));
+
+            //TO DO
+        }
         return "redirect:/institutie/index";
     }
 }
