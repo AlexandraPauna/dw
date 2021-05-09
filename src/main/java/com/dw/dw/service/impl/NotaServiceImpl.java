@@ -1,7 +1,9 @@
 package com.dw.dw.service.impl;
 
 import com.dw.dw.model.centralizat.Nota;
+import com.dw.dw.model.urban.NotaUrban;
 import com.dw.dw.repository.centralizat.NotaRepository;
+import com.dw.dw.repository.urban.NotaUrbanRepository;
 import com.dw.dw.service.NotaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +15,12 @@ import java.util.Optional;
 public class NotaServiceImpl implements NotaService {
 
     public final NotaRepository notaRepository;
+    public final NotaUrbanRepository notaUrbanRepository;
 
     @Autowired
-    public NotaServiceImpl(NotaRepository notaRepository) {
+    public NotaServiceImpl(NotaRepository notaRepository, NotaUrbanRepository notaUrbanRepository) {
         this.notaRepository = notaRepository;
+        this.notaUrbanRepository = notaUrbanRepository;
     }
 
     @Override
@@ -48,6 +52,11 @@ public class NotaServiceImpl implements NotaService {
     @Override
     public Nota updateNota(Nota nota) {
         return notaRepository.save(nota);
+    }
+
+    @Override
+    public NotaUrban saveNotaUrban(NotaUrban nota) {
+        return notaUrbanRepository.save(nota);
     }
 
 }

@@ -1,7 +1,10 @@
 package com.dw.dw.controller;
 
 import com.dw.dw.model.centralizat.*;
+import com.dw.dw.model.urban.ClasaUrban;
+import com.dw.dw.model.urban.NotaUrban;
 import com.dw.dw.service.*;
+import com.dw.dw.utils.ObjectConverters;
 import com.dw.dw.utils.SelectListItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -76,7 +79,20 @@ public class NotaController {
             return "/nota/new";
         }
 
+        //salvarea pe centralizat
         Nota notaSaved = notaService.saveNota(nota);
+
+        //salvarea pe fragmentul corespunzator
+        if(nota.getElev().getClasa().getInstitutie().getAdresa().getLocalitate().getTipZona() != null) {
+            if(nota.getElev().getClasa().getInstitutie().getAdresa().getLocalitate().getTipZona().getNume().toUpperCase().equals("URBAN")) {
+                //se converteste obiectul
+                NotaUrban urban = ObjectConverters.notaCentralizatToUrban.apply(nota);
+
+                //se adauga in fragmentul urban
+                NotaUrban saved_Urban = notaService.saveNotaUrban(urban);
+            }
+
+        }
 
         return "redirect:/elev/show/" + nota.getElev().getId();
     }

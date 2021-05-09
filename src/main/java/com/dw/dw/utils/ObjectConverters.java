@@ -1,6 +1,7 @@
 package com.dw.dw.utils;
 
 import com.dw.dw.model.centralizat.*;
+import com.dw.dw.model.centralizat.Curs;
 import com.dw.dw.model.centralizat.Judet;
 import com.dw.dw.model.centralizat.Profil;
 import com.dw.dw.model.centralizat.Regiune;
@@ -198,6 +199,37 @@ public class ObjectConverters {
 
             ClasaUrban clasa_urban = ObjectConverters.clasaCentralizatToUrban.apply(t.getClasa());
             urban.setClasa(clasa_urban);
+
+            return urban;
+        }
+    };
+
+    public static Function<Nota, NotaUrban> notaCentralizatToUrban
+            = new Function<Nota, NotaUrban>() {
+
+        public NotaUrban apply(Nota t) {
+            NotaUrban urban = new NotaUrban();
+            urban.setId(t.getId());
+            urban.setValoare(t.getValoare());
+            urban.setData(t.getData());
+
+            ElevUrban elev_urban = ObjectConverters.elevCentralizatToUrban.apply(t.getElev());
+            urban.setElev(elev_urban);
+
+            com.dw.dw.model.urban.Curs curs_urban = ObjectConverters.cursCentralizatToUrban.apply(t.getCurs());
+            urban.setCurs(curs_urban);
+
+            return urban;
+        }
+    };
+
+    public static Function<Curs, com.dw.dw.model.urban.Curs> cursCentralizatToUrban
+            = new Function<Curs, com.dw.dw.model.urban.Curs>() {
+
+        public com.dw.dw.model.urban.Curs apply(Curs t) {
+            com.dw.dw.model.urban.Curs urban = new com.dw.dw.model.urban.Curs();
+            urban.setId(t.getId());
+            urban.setNume(t.getNume());
 
             return urban;
         }
