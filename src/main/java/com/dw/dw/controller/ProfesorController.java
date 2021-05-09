@@ -3,11 +3,13 @@ package com.dw.dw.controller;
 import com.dw.dw.model.centralizat.ClasaCursProfesor;
 import com.dw.dw.model.centralizat.Profesor;
 import com.dw.dw.model.centralizat.SpecializareDidactica;
+import com.dw.dw.model.rural.ProfesorRural;
 import com.dw.dw.model.urban.NotaUrban;
 import com.dw.dw.model.urban.ProfesorUrban;
 import com.dw.dw.service.ProfesorService;
 import com.dw.dw.service.SpecializareDidacticaService;
 import com.dw.dw.utils.ObjectConverters;
+import com.dw.dw.utils.ObjectConvertersRural;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -92,7 +94,10 @@ public class ProfesorController {
         ProfesorUrban urban = ObjectConverters.profesorCentralizatToUrban.apply(profesor);
         ProfesorUrban saved_Urban = profesorService.saveProfesorUrban(urban);
 
-        //TO DO RURAL
+        //salvarea verticala pe fragmentul Rural
+        //se converteste obiectul
+        ProfesorRural rural = ObjectConvertersRural.profesorCentralizatToRural.apply(profesor);
+        ProfesorRural saved_Rural = profesorService.saveProfesorRural(rural);
 
         return "redirect:/profesor/index";
     }
@@ -139,7 +144,11 @@ public class ProfesorController {
             //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
             profesorService.deleteByIdUrban(Integer.valueOf(id));
 
-            //TO DO
+        }
+        if(profesorService.findProfesorByIdRural(Integer.valueOf(id)) != null) {
+            //se sterge din fragmentul Rural -> are acelasi id ca si cel din centralizat
+            profesorService.deleteByIdRural(Integer.valueOf(id));
+
         }
 
         return "redirect:/profesor/index";
@@ -218,7 +227,13 @@ public class ProfesorController {
             //se updateaza in fragmentul urban
             profesorService.updateProfesorUrban(urban);
         }
-        //TO DO else
+        if(profesorService.findProfesorByIdRural(currentElem.getId()) != null) {
+            //se converteste obiectul
+            ProfesorRural rural = ObjectConvertersRural.profesorCentralizatToRural.apply(currentElem);
+
+            //se updateaza in fragmentul urban
+            profesorService.updateProfesorRural(rural);
+        }
 
         if (result.hasErrors()){
             return "/profesor/update";
