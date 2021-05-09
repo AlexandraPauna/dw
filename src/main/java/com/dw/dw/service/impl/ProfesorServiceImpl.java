@@ -1,7 +1,9 @@
 package com.dw.dw.service.impl;
 
 import com.dw.dw.model.centralizat.Profesor;
+import com.dw.dw.model.urban.ProfesorUrban;
 import com.dw.dw.repository.centralizat.ProfesorRepository;
+import com.dw.dw.repository.urban.ProfesorUrbanRepository;
 import com.dw.dw.service.ProfesorService;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,12 @@ import java.util.Optional;
 @Service
 public class ProfesorServiceImpl implements ProfesorService {
     private final ProfesorRepository profesorRepository;
+    private final ProfesorUrbanRepository profesorUrbanRepository;
 
     @Autowired
-    public ProfesorServiceImpl(ProfesorRepository profesorRepository) {
+    public ProfesorServiceImpl(ProfesorRepository profesorRepository, ProfesorUrbanRepository profesorUrbanRepository) {
         this.profesorRepository = profesorRepository;
+        this.profesorUrbanRepository = profesorUrbanRepository;
     }
 
     @Override
@@ -60,4 +64,10 @@ public class ProfesorServiceImpl implements ProfesorService {
     public Profesor updateProfesor(Profesor profesor) {
         return profesorRepository.save(profesor);
     }
+
+    @Override
+    public ProfesorUrban saveProfesorUrban(ProfesorUrban profesor) {
+        return profesorUrbanRepository.saveAndFlush(profesor);
+    }
+
 }

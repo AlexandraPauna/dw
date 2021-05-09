@@ -3,8 +3,11 @@ package com.dw.dw.controller;
 import com.dw.dw.model.centralizat.ClasaCursProfesor;
 import com.dw.dw.model.centralizat.Profesor;
 import com.dw.dw.model.centralizat.SpecializareDidactica;
+import com.dw.dw.model.urban.NotaUrban;
+import com.dw.dw.model.urban.ProfesorUrban;
 import com.dw.dw.service.ProfesorService;
 import com.dw.dw.service.SpecializareDidacticaService;
+import com.dw.dw.utils.ObjectConverters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -81,7 +84,15 @@ public class ProfesorController {
             return "/profesor/new";
         }
 
+        //salvarea pe centralizat
         Profesor savedProfesor = profesorService.saveProfesor(profesor);
+
+        //salvarea verticala pe fragmentul urban
+        //se converteste obiectul
+        ProfesorUrban urban = ObjectConverters.profesorCentralizatToUrban.apply(profesor);
+        ProfesorUrban saved_Urban = profesorService.saveProfesorUrban(urban);
+
+        //TO DO RURAL
 
         return "redirect:/profesor/index";
     }

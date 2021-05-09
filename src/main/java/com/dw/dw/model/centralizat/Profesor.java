@@ -46,4 +46,7 @@ public class Profesor {
 
     @OneToMany(mappedBy = "profesor", cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ClasaCursProfesor> clasaCursProfesorSet = new HashSet<ClasaCursProfesor>();
+
+    @Column(name = "salariu")
+    private Integer salariu;
 }
