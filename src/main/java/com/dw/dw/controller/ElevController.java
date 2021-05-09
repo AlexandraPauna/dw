@@ -135,6 +135,17 @@ public class ElevController {
     @RequestMapping("elev/{id}/delete")
     public String deleteById(@PathVariable String id){
         elevService.deleteById(Integer.valueOf(id));
+        //bd centralizata
+        elevService.deleteById(Integer.valueOf(id));
+
+        //pe fragmentat
+        if(elevService.findElevUrbanById(Integer.valueOf(id)) != null) {
+            //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
+            elevService.deleteByIdUrban(Integer.valueOf(id));
+
+            //TO DO
+        }
+
         return "redirect:/elev/index";
     }
 
