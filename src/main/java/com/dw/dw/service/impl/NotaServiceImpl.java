@@ -59,4 +59,25 @@ public class NotaServiceImpl implements NotaService {
         return notaUrbanRepository.save(nota);
     }
 
+    @Override
+    public void deleteByIdUrban(int id) {
+        notaUrbanRepository.deleteById(id);
+    }
+
+    @Override
+    public NotaUrban findNotaByIdUrban(Integer id) {
+        Optional<NotaUrban> elemOptional = notaUrbanRepository.findById(id);
+
+        if (!elemOptional.isPresent()) {
+            throw new RuntimeException("Nota negasita!");
+        }
+
+        return elemOptional.get();
+    }
+
+    @Override
+    public NotaUrban updateNotaUrban(NotaUrban nota) {
+        return notaUrbanRepository.save(nota);
+    }
+
 }

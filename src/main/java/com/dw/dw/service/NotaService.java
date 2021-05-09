@@ -13,4 +13,7 @@ public interface NotaService {
     Nota updateNota(Nota nota);
 
     NotaUrban saveNotaUrban(NotaUrban nota);
+    void deleteByIdUrban(int id);
+    NotaUrban findNotaByIdUrban(Integer id);
+    NotaUrban updateNotaUrban(NotaUrban nota);
 }
