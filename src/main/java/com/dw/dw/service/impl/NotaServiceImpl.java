@@ -1,8 +1,10 @@
 package com.dw.dw.service.impl;
 
 import com.dw.dw.model.centralizat.Nota;
+import com.dw.dw.model.rural.NotaRural;
 import com.dw.dw.model.urban.NotaUrban;
 import com.dw.dw.repository.centralizat.NotaRepository;
+import com.dw.dw.repository.rural.NotaRuralRepository;
 import com.dw.dw.repository.urban.NotaUrbanRepository;
 import com.dw.dw.service.NotaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +18,13 @@ public class NotaServiceImpl implements NotaService {
 
     public final NotaRepository notaRepository;
     public final NotaUrbanRepository notaUrbanRepository;
+    public final NotaRuralRepository notaRuralRepository;
 
     @Autowired
-    public NotaServiceImpl(NotaRepository notaRepository, NotaUrbanRepository notaUrbanRepository) {
+    public NotaServiceImpl(NotaRepository notaRepository, NotaUrbanRepository notaUrbanRepository, NotaRuralRepository notaRuralRepository) {
         this.notaRepository = notaRepository;
         this.notaUrbanRepository = notaUrbanRepository;
+        this.notaRuralRepository = notaRuralRepository;
     }
 
     @Override
@@ -78,6 +82,33 @@ public class NotaServiceImpl implements NotaService {
     @Override
     public NotaUrban updateNotaUrban(NotaUrban nota) {
         return notaUrbanRepository.save(nota);
+    }
+
+    //RURAL
+    @Override
+    public NotaRural saveNotaRural(NotaRural nota) {
+        return notaRuralRepository.save(nota);
+    }
+
+    @Override
+    public void deleteByIdRural(int id) {
+        notaRuralRepository.deleteById(id);
+    }
+
+    @Override
+    public NotaRural findNotaByIdRural(Integer id) {
+        Optional<NotaRural> elemOptional = notaRuralRepository.findById(id);
+
+        if (!elemOptional.isPresent()) {
+            throw new RuntimeException("Nota Rural negasita!");
+        }
+
+        return elemOptional.get();
+    }
+
+    @Override
+    public NotaRural updateNotaRural(NotaRural nota) {
+        return notaRuralRepository.save(nota);
     }
 
 }

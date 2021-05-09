@@ -1,6 +1,7 @@
 package com.dw.dw.service;
 
 import com.dw.dw.model.centralizat.ClasaCursProfesor;
+import com.dw.dw.model.rural.ClasaCursProfesorRural;
 import com.dw.dw.model.urban.ClasaCursProfesorUrban;
 
 import java.util.List;
@@ -18,4 +19,10 @@ public interface ClasaCursProfesorService {
     void deleteByIdUrban(int id);
     //public ClasaCursProfesorUrban findByIdUrban(int id);
     ClasaCursProfesorUrban findClasaCursProfesorUrbanById(Integer id);
+
+    ClasaCursProfesorRural saveClasaCursProfesorRural(ClasaCursProfesorRural elem);
+    ClasaCursProfesorRural updateClasaCursProfesorRural(ClasaCursProfesorRural elem);
+    void deleteByIdRural(int id);
+    //public ClasaCursProfesorUrban findByIdUrban(int id);
+    ClasaCursProfesorRural findClasaCursProfesorRuralById(Integer id);
 }

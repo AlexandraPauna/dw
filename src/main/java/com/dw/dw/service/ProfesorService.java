@@ -1,6 +1,7 @@
 package com.dw.dw.service;
 
 import com.dw.dw.model.centralizat.Profesor;
+import com.dw.dw.model.rural.ProfesorRural;
 import com.dw.dw.model.urban.ProfesorUrban;
 
 import java.util.List;
@@ -17,4 +18,9 @@ public interface ProfesorService {
     void deleteByIdUrban(int id);
     ProfesorUrban findProfesorByIdUrban(Integer id);
     ProfesorUrban updateProfesorUrban(ProfesorUrban profesor);
+
+    ProfesorRural saveProfesorRural(ProfesorRural profesor);
+    void deleteByIdRural(int id);
+    ProfesorRural findProfesorByIdRural(Integer id);
+    ProfesorRural updateProfesorRural(ProfesorRural profesor);
 }

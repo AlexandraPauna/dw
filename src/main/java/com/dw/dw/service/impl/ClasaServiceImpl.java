@@ -2,8 +2,10 @@ package com.dw.dw.service.impl;
 
 import com.dw.dw.model.centralizat.Clasa;
 import com.dw.dw.model.centralizat.InstitutieInvatamant;
+import com.dw.dw.model.rural.ClasaRural;
 import com.dw.dw.model.urban.ClasaUrban;
 import com.dw.dw.repository.centralizat.ClasaRepository;
+import com.dw.dw.repository.rural.ClasaRuralRepository;
 import com.dw.dw.repository.urban.ClasaUrbanRepository;
 import com.dw.dw.service.ClasaService;
 import org.apache.velocity.exception.ResourceNotFoundException;
@@ -18,11 +20,13 @@ public class ClasaServiceImpl implements ClasaService {
     private final ClasaRepository clasaRepository;
 
     private final ClasaUrbanRepository clasaUrbanRepository;
+    private final ClasaRuralRepository clasaRuralRepository;
 
     @Autowired
-    public ClasaServiceImpl(ClasaRepository clasaRepository, ClasaUrbanRepository clasaUrbanRepository) {
+    public ClasaServiceImpl(ClasaRepository clasaRepository, ClasaUrbanRepository clasaUrbanRepository, ClasaRuralRepository clasaRuralRepository) {
         this.clasaRepository = clasaRepository;
         this.clasaUrbanRepository = clasaUrbanRepository;
+        this.clasaRuralRepository = clasaRuralRepository;
     }
 
     @Override
@@ -97,5 +101,32 @@ public class ClasaServiceImpl implements ClasaService {
     @Override
     public ClasaUrban updateClasaUrban(ClasaUrban clasa) {
         return clasaUrbanRepository.save(clasa);
+    }
+
+    //Rural
+    @Override
+    public ClasaRural saveClasaRural(ClasaRural clasa) {
+        return clasaRuralRepository.saveAndFlush(clasa);
+    }
+
+    @Override
+    public void deleteByIdRural(int id) {
+        clasaRuralRepository.deleteById(id);
+    }
+
+    @Override
+    public ClasaRural findClasaRuralById(Integer id) {
+        Optional<ClasaRural> elemOptional = clasaRuralRepository.findById(id);
+
+        if (!elemOptional.isPresent()) {
+            throw new RuntimeException("ClasaRural negasita!");
+        }
+
+        return elemOptional.get();
+    }
+
+    @Override
+    public ClasaRural updateClasaRural(ClasaRural clasa) {
+        return clasaRuralRepository.save(clasa);
     }
 }

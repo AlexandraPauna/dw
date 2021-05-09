@@ -1,8 +1,10 @@
 package com.dw.dw.service.impl;
 
 import com.dw.dw.model.centralizat.Profesor;
+import com.dw.dw.model.rural.ProfesorRural;
 import com.dw.dw.model.urban.ProfesorUrban;
 import com.dw.dw.repository.centralizat.ProfesorRepository;
+import com.dw.dw.repository.rural.ProfesorRuralRepository;
 import com.dw.dw.repository.urban.ProfesorUrbanRepository;
 import com.dw.dw.service.ProfesorService;
 import org.apache.velocity.exception.ResourceNotFoundException;
@@ -16,11 +18,13 @@ import java.util.Optional;
 public class ProfesorServiceImpl implements ProfesorService {
     private final ProfesorRepository profesorRepository;
     private final ProfesorUrbanRepository profesorUrbanRepository;
+    private final ProfesorRuralRepository profesorRuralRepository;
 
     @Autowired
-    public ProfesorServiceImpl(ProfesorRepository profesorRepository, ProfesorUrbanRepository profesorUrbanRepository) {
+    public ProfesorServiceImpl(ProfesorRepository profesorRepository, ProfesorUrbanRepository profesorUrbanRepository, ProfesorRuralRepository profesorRuralRepository) {
         this.profesorRepository = profesorRepository;
         this.profesorUrbanRepository = profesorUrbanRepository;
+        this.profesorRuralRepository = profesorRuralRepository;
     }
 
     @Override
@@ -90,5 +94,32 @@ public class ProfesorServiceImpl implements ProfesorService {
     @Override
     public void deleteByIdUrban(int id) {
         profesorUrbanRepository.deleteById(id);
+    }
+
+    //RURAL
+    @Override
+    public ProfesorRural saveProfesorRural(ProfesorRural profesor) {
+        return profesorRuralRepository.saveAndFlush(profesor);
+    }
+
+    @Override
+    public ProfesorRural findProfesorByIdRural(Integer id) {
+        Optional<ProfesorRural> elemOptional = profesorRuralRepository.findById(id);
+
+        if (!elemOptional.isPresent()) {
+            throw new RuntimeException("ProfesorRural negasit!");
+        }
+
+        return elemOptional.get();
+    }
+
+    @Override
+    public ProfesorRural updateProfesorRural(ProfesorRural profesor) {
+        return profesorRuralRepository.save(profesor);
+    }
+
+    @Override
+    public void deleteByIdRural(int id) {
+        profesorRuralRepository.deleteById(id);
     }
 }

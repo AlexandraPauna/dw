@@ -1,8 +1,10 @@
 package com.dw.dw.service.impl;
 
 import com.dw.dw.model.centralizat.InstitutieInvatamant;
+import com.dw.dw.model.rural.InstitutieInvatamantRural;
 import com.dw.dw.model.urban.InstitutieInvatamantUrban;
 import com.dw.dw.repository.centralizat.InstitutieInvatamantRepository;
+import com.dw.dw.repository.rural.InstitutieInvatamantRuralRepository;
 import com.dw.dw.repository.urban.InstitutieInvatamantUrbanRepository;
 import com.dw.dw.service.InstitutieInvatamantService;
 import org.apache.velocity.exception.ResourceNotFoundException;
@@ -18,11 +20,13 @@ public class InstitutieInvatamantServiceImpl implements InstitutieInvatamantServ
     private final InstitutieInvatamantRepository institutieInvatamantRepository;
 
     private final InstitutieInvatamantUrbanRepository institutieInvatamantRepository_Urban;
+    private final InstitutieInvatamantRuralRepository institutieInvatamantRepository_Rural;
 
     @Autowired
-    public InstitutieInvatamantServiceImpl(InstitutieInvatamantRepository institutieInvatamantRepository, InstitutieInvatamantUrbanRepository institutieInvatamantRepository_urban) {
+    public InstitutieInvatamantServiceImpl(InstitutieInvatamantRepository institutieInvatamantRepository, InstitutieInvatamantUrbanRepository institutieInvatamantRepository_urban, InstitutieInvatamantRuralRepository institutieInvatamantRepository_rural) {
         this.institutieInvatamantRepository = institutieInvatamantRepository;
         this.institutieInvatamantRepository_Urban = institutieInvatamantRepository_urban;
+        this.institutieInvatamantRepository_Rural = institutieInvatamantRepository_rural;
     }
 
     @Override
@@ -94,5 +98,30 @@ public class InstitutieInvatamantServiceImpl implements InstitutieInvatamantServ
         return institutieInvatamantRepository_Urban.save(institutieInvatamant);
     }
 
+    //RURAL
+    @Override
+    public InstitutieInvatamantRural saveInstitutieInvatamant_Rural(InstitutieInvatamantRural institutieInvatamant) {
+        return institutieInvatamantRepository_Rural.saveAndFlush(institutieInvatamant);
+    }
 
+    @Override
+    public void deleteByIdRural(int id) {
+        institutieInvatamantRepository_Rural.deleteById(id);
+    }
+
+    @Override
+    public InstitutieInvatamantRural findInstitutieInvatamantByIdRural(Integer id) {
+        Optional<InstitutieInvatamantRural> institutieInvatamantOptional = institutieInvatamantRepository_Rural.findById(id);
+
+        if (!institutieInvatamantOptional.isPresent()) {
+            throw new RuntimeException("Institutie Invatamant Rural negasita!");
+        }
+
+        return institutieInvatamantOptional.get();
+    }
+
+    @Override
+    public InstitutieInvatamantRural updateInstitutieInvatamantRural(InstitutieInvatamantRural institutieInvatamant) {
+        return institutieInvatamantRepository_Rural.save(institutieInvatamant);
+    }
 }
