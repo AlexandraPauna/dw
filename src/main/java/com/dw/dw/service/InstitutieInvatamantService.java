@@ -14,4 +14,7 @@ public interface InstitutieInvatamantService {
     InstitutieInvatamant updateInstitutieInvatamant(InstitutieInvatamant institutieInvatamant);
 
     InstitutieInvatamantUrban saveInstitutieInvatamant_Urban(InstitutieInvatamantUrban institutieInvatamant);
+    void deleteByIdUrban(int id);
+    InstitutieInvatamantUrban findInstitutieInvatamantByIdUrban(Integer id);
+    InstitutieInvatamantUrban updateInstitutieInvatamantUrban(InstitutieInvatamantUrban institutieInvatamant);
 }

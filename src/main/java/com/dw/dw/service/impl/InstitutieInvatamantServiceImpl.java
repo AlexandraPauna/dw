@@ -73,4 +73,26 @@ public class InstitutieInvatamantServiceImpl implements InstitutieInvatamantServ
         return institutieInvatamantRepository_Urban.saveAndFlush(institutieInvatamant);
     }
 
+    @Override
+    public void deleteByIdUrban(int id) {
+        institutieInvatamantRepository_Urban.deleteById(id);
+    }
+
+    @Override
+    public InstitutieInvatamantUrban findInstitutieInvatamantByIdUrban(Integer id) {
+        Optional<InstitutieInvatamantUrban> institutieInvatamantOptional = institutieInvatamantRepository_Urban.findById(id);
+
+        if (!institutieInvatamantOptional.isPresent()) {
+            throw new RuntimeException("Institutie Invatamant Urban negasita!");
+        }
+
+        return institutieInvatamantOptional.get();
+    }
+
+    @Override
+    public InstitutieInvatamantUrban updateInstitutieInvatamantUrban(InstitutieInvatamantUrban institutieInvatamant) {
+        return institutieInvatamantRepository_Urban.save(institutieInvatamant);
+    }
+
+
 }
