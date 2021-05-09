@@ -14,4 +14,7 @@ public interface ProfesorService {
     Profesor updateProfesor(Profesor profesor);
 
     ProfesorUrban saveProfesorUrban(ProfesorUrban profesor);
+    void deleteByIdUrban(int id);
+    ProfesorUrban findProfesorByIdUrban(Integer id);
+    ProfesorUrban updateProfesorUrban(ProfesorUrban profesor);
 }

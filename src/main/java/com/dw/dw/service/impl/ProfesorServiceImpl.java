@@ -65,9 +65,30 @@ public class ProfesorServiceImpl implements ProfesorService {
         return profesorRepository.save(profesor);
     }
 
+    //URBAN
     @Override
     public ProfesorUrban saveProfesorUrban(ProfesorUrban profesor) {
         return profesorUrbanRepository.saveAndFlush(profesor);
     }
 
+    @Override
+    public ProfesorUrban findProfesorByIdUrban(Integer id) {
+        Optional<ProfesorUrban> elemOptional = profesorUrbanRepository.findById(id);
+
+        if (!elemOptional.isPresent()) {
+            throw new RuntimeException("ProfesorUrban negasit!");
+        }
+
+        return elemOptional.get();
+    }
+
+    @Override
+    public ProfesorUrban updateProfesorUrban(ProfesorUrban profesor) {
+        return profesorUrbanRepository.save(profesor);
+    }
+
+    @Override
+    public void deleteByIdUrban(int id) {
+        profesorUrbanRepository.deleteById(id);
+    }
 }
