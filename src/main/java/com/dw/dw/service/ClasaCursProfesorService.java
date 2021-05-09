@@ -14,4 +14,8 @@ public interface ClasaCursProfesorService {
     ClasaCursProfesor updateClasaCursProfesor(ClasaCursProfesor elem);
 
     ClasaCursProfesorUrban saveClasaCursProfesorUrban(ClasaCursProfesorUrban elem);
+    ClasaCursProfesorUrban updateClasaCursProfesorUrban(ClasaCursProfesorUrban elem);
+    void deleteByIdUrban(int id);
+    //public ClasaCursProfesorUrban findByIdUrban(int id);
+    ClasaCursProfesorUrban findClasaCursProfesorUrbanById(Integer id);
 }

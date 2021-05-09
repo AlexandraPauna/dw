@@ -65,8 +65,30 @@ public class ClasaCursProfesorServiceImpl implements ClasaCursProfesorService {
         return clasaCursProfesorRepository.save(clasa);
     }
 
+    //URBAN
     @Override
     public ClasaCursProfesorUrban saveClasaCursProfesorUrban(ClasaCursProfesorUrban elem) {
         return clasaCursProfesorUrbanRepository.saveAndFlush(elem);
+    }
+
+    @Override
+    public ClasaCursProfesorUrban updateClasaCursProfesorUrban(ClasaCursProfesorUrban clasa) {
+        return clasaCursProfesorUrbanRepository.save(clasa);
+    }
+
+    @Override
+    public void deleteByIdUrban(int id) {
+        clasaCursProfesorUrbanRepository.deleteById(id);
+    }
+
+    @Override
+    public ClasaCursProfesorUrban findClasaCursProfesorUrbanById(Integer id) {
+        Optional<ClasaCursProfesorUrban> elemOptional = clasaCursProfesorUrbanRepository.findById(id);
+
+        if (!elemOptional.isPresent()) {
+            throw new RuntimeException("ClasaCursProfesorUrban negasita!");
+        }
+
+        return elemOptional.get();
     }
 }

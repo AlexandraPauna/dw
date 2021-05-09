@@ -102,7 +102,7 @@ public class ClasaCursProfesorController {
                 //se adauga in fragmentul urban
                 ClasaCursProfesorUrban saved_Urban = clasaCursProfesorService.saveClasaCursProfesorUrban(urban);
             }
-
+        //TO DO
         }
 
         if(clasaId != null) {
@@ -165,7 +165,20 @@ public class ClasaCursProfesorController {
 //        currentElem.setCurs(clasaCursProfesor.getCurs());
         currentElem.setProfesor(clasaCursProfesor.getProfesor());
 
+        //bd centralizata
         clasaCursProfesorService.updateClasaCursProfesor(currentElem);
+
+        //pe fragmentat
+        //se cauta daca e in urban
+        if(clasaCursProfesorService.findClasaCursProfesorUrbanById(currentElem.getId()) != null) {
+                    //se converteste obiectul
+                    ClasaCursProfesorUrban urban = ObjectConverters.clasaCursProfesorCentralizatToUrban.apply(currentElem);
+
+                    //se updateaza in fragmentul urban
+                    clasaCursProfesorService.updateClasaCursProfesorUrban(urban);
+        }
+        //TO DO else
+
         if (result.hasErrors()){
             return "/clasaCursProfesor/update";
         }
@@ -196,7 +209,18 @@ public class ClasaCursProfesorController {
     public String deleteById(@PathVariable String id){
         ClasaCursProfesor currentElem = clasaCursProfesorService.findClasaCursProfesorById(Integer.valueOf(id));
         int idCls = currentElem.getClasa().getId();
+
+        //bd centralizata
         clasaCursProfesorService.deleteById(Integer.valueOf(id));
+
+        //pe fragmentat
+        if(currentElem.getClasa().getInstitutie().getAdresa().getLocalitate().getTipZona() != null) {
+            //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
+            clasaCursProfesorService.deleteByIdUrban(Integer.valueOf(id));
+
+            //TO DO
+        }
+
         return "redirect:/clasa/show/" + idCls;
     }
 }
