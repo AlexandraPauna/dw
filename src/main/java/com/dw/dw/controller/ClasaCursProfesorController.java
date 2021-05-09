@@ -1,10 +1,12 @@
 package com.dw.dw.controller;
 
 import com.dw.dw.model.centralizat.*;
+import com.dw.dw.model.rural.ClasaCursProfesorRural;
 import com.dw.dw.model.urban.ClasaCursProfesorUrban;
 import com.dw.dw.model.urban.NotaUrban;
 import com.dw.dw.service.*;
 import com.dw.dw.utils.ObjectConverters;
+import com.dw.dw.utils.ObjectConvertersRural;
 import com.dw.dw.utils.SelectListItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -102,7 +104,13 @@ public class ClasaCursProfesorController {
                 //se adauga in fragmentul urban
                 ClasaCursProfesorUrban saved_Urban = clasaCursProfesorService.saveClasaCursProfesorUrban(urban);
             }
-        //TO DO
+            else if(clasaCursProfesor.getClasa().getInstitutie().getAdresa().getLocalitate().getTipZona().getNume().toUpperCase().equals("RURAL")) {
+                //se converteste obiectul
+                ClasaCursProfesorRural rural = ObjectConvertersRural.clasaCursProfesorCentralizatToRural.apply(clasaCursProfesor);
+
+                //se adauga in fragmentul rural
+                ClasaCursProfesorRural saved_rural = clasaCursProfesorService.saveClasaCursProfesorRural(rural);
+            }
         }
 
         if(clasaId != null) {
@@ -177,7 +185,14 @@ public class ClasaCursProfesorController {
                     //se updateaza in fragmentul urban
                     clasaCursProfesorService.updateClasaCursProfesorUrban(urban);
         }
-        //TO DO else
+        else
+        if(clasaCursProfesorService.findClasaCursProfesorRuralById(currentElem.getId()) != null) {
+            //se converteste obiectul
+            ClasaCursProfesorRural rural = ObjectConvertersRural.clasaCursProfesorCentralizatToRural.apply(currentElem);
+
+            //se updateaza in fragmentul Rural
+            clasaCursProfesorService.updateClasaCursProfesorRural(rural);
+        }
 
         if (result.hasErrors()){
             return "/clasaCursProfesor/update";
@@ -218,7 +233,11 @@ public class ClasaCursProfesorController {
             //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
             clasaCursProfesorService.deleteByIdUrban(Integer.valueOf(id));
 
-            //TO DO
+        }
+        else  if(clasaCursProfesorService.findClasaCursProfesorRuralById(Integer.valueOf(id)) != null) {
+            //se sterge din fragmentul Rural -> are acelasi id ca si cel din centralizat
+            clasaCursProfesorService.deleteByIdRural(Integer.valueOf(id));
+
         }
 
         return "redirect:/clasa/show/" + idCls;
