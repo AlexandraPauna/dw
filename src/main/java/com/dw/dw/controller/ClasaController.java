@@ -1,11 +1,13 @@
 package com.dw.dw.controller;
 
 import com.dw.dw.model.centralizat.*;
+import com.dw.dw.model.rural.ClasaRural;
 import com.dw.dw.model.urban.ClasaCursProfesorUrban;
 import com.dw.dw.model.urban.ClasaUrban;
 import com.dw.dw.model.urban.InstitutieInvatamantUrban;
 import com.dw.dw.service.*;
 import com.dw.dw.utils.ObjectConverters;
+import com.dw.dw.utils.ObjectConvertersRural;
 import com.dw.dw.utils.SelectListItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -97,6 +99,13 @@ public class ClasaController {
 
                 //se adauga in fragmentul urban
                 ClasaUrban savedClasa_Urban = clasaService.saveClasaUrban(clasa_urban);
+            }
+            else if(clasa.getInstitutie().getAdresa().getLocalitate().getTipZona().getNume().toUpperCase().equals("RURAL")){
+                //se converteste obiectul
+                ClasaRural clasa_rural = ObjectConvertersRural.clasaCentralizatToRural.apply(clasa);
+
+                //se adauga in fragmentul rural
+                ClasaRural savedClasa_rural = clasaService.saveClasaRural(clasa_rural);
             }
 
         }
@@ -202,7 +211,13 @@ public class ClasaController {
             //se updateaza in fragmentul urban
             clasaService.updateClasaUrban(urban);
         }
-        //TO DO else
+        else if(clasaService.findClasaUrbanById(currentElem.getId()) != null){
+            //se converteste obiectul
+            ClasaRural clasa_rural = ObjectConvertersRural.clasaCentralizatToRural.apply(currentElem);
+
+            //se adauga in fragmentul rural
+            clasaService.updateClasaRural(clasa_rural);
+        }
 
         if (result.hasErrors()){
             return "/clasa/update";
@@ -225,7 +240,12 @@ public class ClasaController {
             //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
             clasaService.deleteByIdUrban(Integer.valueOf(id));
 
-            //TO DO
+        }
+
+        if(clasaService.findClasaRuralById(Integer.valueOf(id)) != null) {
+            //se sterge din fragmentul urban -> are acelasi id ca si cel din centralizat
+            clasaService.deleteByIdRural(Integer.valueOf(id));
+
         }
 
         return "redirect:/institutie/show/" + idInst;
